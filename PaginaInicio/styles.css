@@ -1,0 +1,27 @@
+.carousel-item img {
+    height: 400px;
+    margin: auto;
+    padding: 50px;
+  }
+
+.frase_literaria{
+    font-size: 20px;
+    text-align: center;
+    margin-top: 20px;
+    color: #333;
+
+}
+
+.Introducción{
+    font-size: 18px;
+    text-align: center;
+    margin-top: 100px;
+    color: #555;
+}
+
+.Introducción p {
+    margin: auto;
+    margin-top: 40px;
+    max-width: 800px;
+    font-size: 20px;
+}
