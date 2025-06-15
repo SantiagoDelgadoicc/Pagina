@@ -25,3 +25,38 @@
     max-width: 800px;
     font-size: 20px;
 }
+
+.libros_config {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+}
+
+.card {
+  background: #ab9889;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  width: 250px;
+}
+
+.card img {
+  max-width: 100px;
+  margin: auto;
+}
+.editorial_config_titulo{
+    font-size: 22px;
+}
+
+.editorial_config{
+    font-size: 20px;
+}
+.boton_libros_destacados{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    background-color: rgb(197, 179, 135);
+    border: 1px solid #000000;
+}
+
