@@ -1,0 +1,146 @@
+.letraoscura{
+    color: #4e3732;
+}
+.titulo{
+    margin-top: 50px;
+}
+.filtro{
+    background-color: #af9d7c; 
+    height: 400px; 
+    border-radius: 5px;
+}
+
+.formfiltro{
+    padding: 10px;
+}
+
+div .filtrochecks{
+    background-color: #d5d2c0;
+    border: 0;
+}
+
+div .botonoscuro{
+    background-color: #7d6552; 
+    color:#c2bc99;
+}
+
+ div .botonoscuro:hover{
+    background-color: #6b524a;
+    color:#c2bc99;
+}
+
+div .inputclaro{
+    width: 250px; 
+    background-color: #d5d2c0; 
+    border: 0;
+}
+.posicioncirculo{
+    display: flex; 
+    justify-content: end;
+}
+
+.circulo{
+    padding: 5px; 
+    border-radius: 100%; 
+    background-color:rgb(213, 210, 192,0.9); 
+    width: 30px; 
+    height: 30px; 
+    position: absolute; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    border: 0; 
+    margin: 3px;
+}
+
+.corazon{
+    margin-top:4px; 
+    color:rgb(125, 101, 82,0.7);
+}
+
+div .tarjeta{
+    width: 18rem; 
+    /* height: 370px;  */
+    border: 0px; 
+    position: relative;
+
+}
+
+div .tarjetacuerpo{
+    background-color: #a18e6c;
+    border-bottom-right-radius: 5px ;
+    border-bottom-left-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#botontarjeta{
+    align-self: flex-start;
+}
+
+.piepagina{
+    background-color: #7d6552;
+}
+
+.seccionpie{
+    list-style: none; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+}
+.titulopie{
+    font-size: 19px; 
+    color: #d5d2c0; 
+    font-family: serif;
+ }
+.itempie{
+    margin-top: 10px;
+}
+.enlacepie{
+    text-decoration: none; 
+    color: #c2bc99;
+}
+.enlacepie:hover{
+    color: #d5d2c0;
+}
+
+.seccioniconos{
+    margin-right: 30px;
+}
+.enlaceicon{
+    text-decoration: none;
+}
+.icon{
+    color:#c2bc99; 
+    width: 25px; 
+    height: 25px; 
+    margin-top: 20px; 
+    margin-left: 30px;
+}
+.icon:hover{
+    color: #d5d2c0;
+}
+.copy{
+    color: #c2bc99; 
+    margin-left: 19px;
+}
+.titulofiltro{
+    color: #4e3732;
+    font-size: 19px;
+    font-family: serif;
+}
+
+.titulo_logo{
+    margin-left: 15px; 
+    font-family: serif;
+    color: #d5d2c0;  
+    margin-top: 5px;
+    margin-left: 15px; 
+    font-family: serif; 
+    margin-top: 5px;
+}
+
+.coloritemnav{
+    color: #d5d2c0; 
+}
