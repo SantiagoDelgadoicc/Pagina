@@ -1,7 +1,9 @@
 .letraoscura{
     color: #4e3732;
 }
-
+.titulo{
+    margin-top: 50px;
+}
 .filtro{
     background-color: #af9d7c; 
     height: 400px; 
@@ -58,15 +60,23 @@ div .inputclaro{
 
 div .tarjeta{
     width: 18rem; 
-    height: 370px; 
+    /* height: 370px;  */
     border: 0px; 
     position: relative;
+
 }
 
 div .tarjetacuerpo{
     background-color: #a18e6c;
     border-bottom-right-radius: 5px ;
     border-bottom-left-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#botontarjeta{
+    align-self: flex-start;
 }
 
 .piepagina{
@@ -91,6 +101,9 @@ div .tarjetacuerpo{
     text-decoration: none; 
     color: #c2bc99;
 }
+.enlacepie:hover{
+    color: #d5d2c0;
+}
 
 .seccioniconos{
     margin-right: 30px;
@@ -104,6 +117,9 @@ div .tarjetacuerpo{
     height: 25px; 
     margin-top: 20px; 
     margin-left: 30px;
+}
+.icon:hover{
+    color: #d5d2c0;
 }
 .copy{
     color: #c2bc99; 
