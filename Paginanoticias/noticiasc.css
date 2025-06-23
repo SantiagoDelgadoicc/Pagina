@@ -1,16 +1,31 @@
 body{
-    background-color: rgb(38, 32, 28);
+    background-color: #d5d2c0;
     margin: 0;
 }
 .gridgeneral {
   display: grid;
   grid-template-columns:1fr 1fr 1fr 1fr;
-  grid-template-rows:  300px 300px 300px;
+  grid-template-rows:  300px 1300px 250px 150px;
   border: 1px solid rgb(0, 0, 0);
   margin: 20px auto;
   padding: 10px;
   gap: 10px;
   align-items: center;
+}
+
+.cajanoticias{
+  grid-column: 1/5;
+  grid-row: 2;
+}
+
+.cajanavbar{
+  grid-column: 1/5;
+  grid-row: 1;
+}
+
+.cajafooter{
+  grid-column: 1/5;
+  grid-row: 4;
 }
 
 .wrapper {
@@ -28,15 +43,20 @@ main {
     grid-row: 4;
 }
 
-.custom-navbar {
-  background-color: rgb(78, 55, 50);
-}
-
-.custom-navbar .form-control {
-  background-color: #fff;
-  color: #000;
+.coloritemnav{
+    color: #d5d2c0; 
 }
 
 footer {
   background-color: rgb(78, 55, 50);
+}
+
+.titulo_logo{
+    margin-left: 15px; 
+    font-family: serif;
+    color: #d5d2c0;  
+    margin-top: 5px;
+    margin-left: 15px; 
+    font-family: serif; 
+    margin-top: 5px;
 }
