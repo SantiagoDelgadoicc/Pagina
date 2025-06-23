@@ -5,7 +5,7 @@ body{
 .gridgeneral {
   display: grid;
   grid-template-columns:1fr 1fr 1fr 1fr;
-  grid-template-rows:  300px 300px 300px;
+  grid-template-rows:  400px 300px 300px;
   border: 1px solid rgb(0, 0, 0);
   margin: 20px auto;
   padding: 10px;
@@ -28,15 +28,20 @@ main {
     grid-row: 4;
 }
 
-.custom-navbar {
-  background-color: rgb(78, 55, 50);
-}
-
-.custom-navbar .form-control {
-  background-color: #fff;
-  color: #000;
+.titulo_logo{
+    margin-left: 15px; 
+    font-family: serif;
+    color: #d5d2c0;  
+    margin-top: 5px;
+    margin-left: 15px; 
+    font-family: serif; 
+    margin-top: 5px;
 }
 
 footer {
   background-color: rgb(78, 55, 50);
+}
+
+.coloritemnav{
+    color: #d5d2c0; 
 }

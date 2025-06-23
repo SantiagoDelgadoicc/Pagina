@@ -1,7 +1,7 @@
 const apiKey = 'efaaf1c4-11e3-46d2-b756-584da68ed133';
 const noticiasContainer = document.getElementById('noticias');
 
-fetch(`https://content.guardianapis.com/search?q=books&section=books&api-key=${apiKey}&show-fields=thumbnail,trailText,byline`)
+fetch(`https://content.guardianapis.com/search?q=books&section=books&api-key=${apiKey}&show-fields=thumbnail,trailText,byline&page-size=9`)
   .then(res => res.json())
   .then(data => {
     const noticias = data.response.results;
