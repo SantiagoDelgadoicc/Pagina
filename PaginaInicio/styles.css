@@ -187,7 +187,7 @@ body.modo-noche::before {
   width: 100%; 
   height: 100%;
   background: url('https://img.freepik.com/vector-gratis/fondo-libros-gafas-dibujados-mano_23-2147611297.jpg') repeat;
-  animation: Movimiento_hacia_abajo 200s linear infinite; /* linear para q no aumente la velocidad */
+  animation: Movimiento_hacia_abajo 200s linear infinite; /* linear para q no aumente la velocidad   */
   opacity: 0.1;
 }
 
