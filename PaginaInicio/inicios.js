@@ -40,7 +40,3 @@ fetch("https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json
 
 // key = 'Yg838GVGDPxGsV0EpVbAmKXRwzHNWDzB'; // API Key de NYT Books
 
-<<<<<<< Updated upstream
-=======
-
->>>>>>> Stashed changes

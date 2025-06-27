@@ -81,16 +81,16 @@ body {
     background-color: rgb(197, 179, 135);
     border: 1px solid #000000;
 }
-<<<<<<< Updated upstream
 .boton_libros_destacados:hover {
   background-color: rgb(197, 179, 135);
   color: black;
   border: 1px solid #000000;
-=======
+}
 
 .footer_pagina{
     background-color: #7d6552;
->>>>>>> Stashed changes
+    color: #d5d2c0;
+
 }
 .piepagina{
     background-color: #7d6552;
@@ -139,8 +139,6 @@ body {
     margin-left: 19px;
 }
 
-<<<<<<< Updated upstream
-=======
 
 /* Modo Noche */
 
@@ -198,4 +196,3 @@ body.modo-noche::before {
   100% { background-position: 10000px 10000px; }
 }
 
->>>>>>> Stashed changes
