@@ -71,13 +71,16 @@ body {
     font-size: 20px;
 }
 .boton_libros_destacados{
-    display: flex;
     justify-content: center;
     margin-top: 20px;
     background-color: rgb(197, 179, 135);
     border: 1px solid #000000;
 }
-
+.boton_libros_destacados:hover {
+  background-color: rgb(197, 179, 135);
+  color: black;
+  border: 1px solid #000000;
+}
 .piepagina{
     background-color: #7d6552;
 }
@@ -124,3 +127,4 @@ body {
     color: #c2bc99; 
     margin-left: 19px;
 }
+
