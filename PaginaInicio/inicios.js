@@ -22,13 +22,14 @@ fetch("https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json
       const card = document.createElement('div');
       card.className = 'card';
       card.innerHTML = `
-        <img src="${imagen}" ">
+        <img src="${imagen}" >
         <h3>${titulo}</h3>
         <p><em>${autor}</em></p>
         <p>${ranking_ventas}</p>
         <p class="editorial_config_titulo"><strong>Editorial:</strong> </p>
         <p class="editorial_config"> ${editorial}</p>
         <a href="${amazon_link}" target="_blank" class="btn boton_libros_destacados">Comprar en Amazon</a>
+
       `;
       contenedor.appendChild(card);
     });
@@ -38,3 +39,8 @@ fetch("https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json
   });
 
 // key = 'Yg838GVGDPxGsV0EpVbAmKXRwzHNWDzB'; // API Key de NYT Books
+
+<<<<<<< Updated upstream
+=======
+
+>>>>>>> Stashed changes
