@@ -86,11 +86,11 @@ busqueda.addEventListener("submit",(event) => {
     
     let consulta_ = `https://www.googleapis.com/books/v1/volumes?q=${elemento}&maxResults=20&key=${key}`
     console.log(consulta_);
-    añadirtarjetabusqueda(consulta_,elemento);
+    añadirtarjetabusqueda(consulta_);
     
 })
 
-function añadirtarjetabusqueda(consulta,elemento){
+function añadirtarjetabusqueda(consulta){
      fetch(consulta)
     .then(response => {
     if (!response.ok) throw new Error('No se pudieron obtener los datos');
@@ -134,9 +134,10 @@ function añadirtarjetabusqueda(consulta,elemento){
                                             <a href="#" class="btn mt-2 botonoscuro id="botontarjeta">ver reseñas</a>
                                         </div>`;
             seccionbusqueda.appendChild(tarjeta);
-            aplicarfiltro(elemento,libro.selfLink);
+            if (libro.volumeInfo.categories){
+                aplicarfiltro(libro.volumeInfo.categories,libro.selfLink,libro.volumeInfo.language);
+            }
            
-
             }
             
         }
@@ -148,10 +149,7 @@ function añadirtarjetabusqueda(consulta,elemento){
     });
 }
 
-function aplicarfiltro(elemento,link){
-    let links = [];
-    links.push(link);
-    // console.log(links);
+function aplicarfiltro(elemento,link,lenguaje){
     const formulariofiltro = document.getElementById("filtros");
     formulariofiltro.addEventListener("submit",(event) => {
              event.preventDefault();
@@ -162,11 +160,8 @@ function aplicarfiltro(elemento,link){
             //   console.log(link);
             let idioma = event.target.idioma.value;
             let genero = event.target.genero.value;
-            //   if(idioma != ""){
-            //     seccionbusqueda.innerHTML="";
-            //     let consulta_ = `https://www.googleapis.com/books/v1/volumes?q=${elemento}&langRestrict:${idioma}&maxResults=20&key=${key}`
-            //     añadirtarjetabusqueda(consulta_);
-            //   }
+            //  console.log(elemento);
+            //  console.log(genero);
             fetch(link)
             .then(response => {
             if (!response.ok) throw new Error('No se pudieron obtener los datos');
@@ -174,39 +169,44 @@ function aplicarfiltro(elemento,link){
             })
             .then(data => {
                 //    console.log(data.volumeInfo.language);
-                   console.log(data.volumeInfo.categories);
-                   if(idioma!=""){
-                    if(idioma == data.volumeInfo.language){
+                   //console.log(data.volumeInfo.categories.includes(genero));
+                //    console.log(elemento.includes(genero));
+                   if(idioma!="" && genero != "seleccion"){
+                    console.log("idioma y seleccion es dintinto de vacio");
+                    if(idioma === lenguaje && elemento.includes(genero) === true){
+                        console.log(lenguaje);
+                        console.log(link);
+                        console.log(elemento);
                         let descripcion = data.volumeInfo.description;
                         let imagen = data.volumeInfo.imageLinks? data.volumeInfo.imageLinks.thumbnail : "img/libro no encontrado.png";
-                        if(descripcion){
-                                    //si tiene descripcion...
-                            if (descripcion.length > 100) {
-                                descripcion = descripcion.substring(0, 100) + '...';
-                            }
-
-                        }else{
-                                    //en caso contrario
-                                    descripcion="N/A";
-                        }
-                        const tarjeta = document.createElement('div');
-                        tarjeta.className = 'card mx-3 p-0 mt-3 tarjeta';
-                        tarjeta.innerHTML = `<div class="posicioncirculo">
-                                                        <button class="circulo">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-heart-fill corazon" viewBox="0 0 16 16">
-                                                                <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-                                                            </svg>
-                                                        </button>
-                                                    </div>
-
-                                                    <img src="${imagen}" class="card-img-top" height="280px" width="100%" alt="libro">
-                                                    <div class="card-body tarjetacuerpo">
-                                                        <h5>${data.volumeInfo.title}</h5>
-                                                        <p class="card-text mt-2 letraoscura">${descripcion}</p>
-                                                        <a href="#" class="btn mt-2 botonoscuro id="botontarjeta">ver reseñas</a>
-                                                    </div>`;
-                        seccionbusqueda.appendChild(tarjeta);
-                    }
+                        let titulo = data.volumeInfo.title
+                        tarjetas(descripcion,imagen,titulo);
+                     }
+                    
+                   }else if (idioma!=""){
+                    console.log("idioma");
+                    if(idioma === lenguaje){
+                        console.log("idioma es dintinto de vacio");
+                        console.log(lenguaje);
+                        console.log(link);
+                        let descripcion = data.volumeInfo.description;
+                        let imagen = data.volumeInfo.imageLinks? data.volumeInfo.imageLinks.thumbnail : "img/libro no encontrado.png";
+                        let titulo = data.volumeInfo.title
+                        tarjetas(descripcion,imagen,titulo);
+                        
+                     }
+                   }
+                   else if(genero != "seleccion"){
+                    if(elemento.includes(genero) === true){
+                        console.log("seleccion es dintinto de vacio");
+                        // console.log(lenguaje);
+                        console.log(link);
+                        console.log(elemento);
+                        let descripcion = data.volumeInfo.description;
+                        let imagen = data.volumeInfo.imageLinks? data.volumeInfo.imageLinks.thumbnail : "img/libro no encontrado.png";
+                        let titulo = data.volumeInfo.title
+                        tarjetas(descripcion,imagen,titulo);
+                     }
                    }
                    
                 })
@@ -217,6 +217,35 @@ function aplicarfiltro(elemento,link){
          })
     
     
+    }
+
+    function tarjetas(descripcion,imagen,titulo){
+        if(descripcion){
+                 //si tiene descripcion...
+                if (descripcion.length > 100) {
+                descripcion = descripcion.substring(0, 100) + '...';
+                }
+
+        }else{
+            //en caso contrario
+            descripcion="N/A";
+        }
+        const tarjeta = document.createElement('div');
+        tarjeta.className = 'card mx-3 p-0 mt-3 tarjeta';
+        tarjeta.innerHTML = `<div class="posicioncirculo">
+                            <button class="circulo">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-heart-fill corazon" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                                </svg>
+                            </button>
+                            </div>
+                                <img src="${imagen}" class="card-img-top" height="280px" width="100%" alt="libro">
+                                <div class="card-body tarjetacuerpo">
+                                    <h5>${titulo}</h5>
+                                    <p class="card-text mt-2 letraoscura">${descripcion}</p>
+                                    <a href="#" class="btn mt-2 botonoscuro id="botontarjeta">ver reseñas</a>
+                                </div>`;
+        seccionbusqueda.appendChild(tarjeta);
     }
 }
 //aun falta aplicar filtros
