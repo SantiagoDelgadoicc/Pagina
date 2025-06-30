@@ -7,7 +7,6 @@ let ids = [];
 let titulos=[];
 let diccionario={};
 let keys;
-let existe =[];
 let librosbuscados=[];
 const secciontarjetas = document.getElementById("secciontarjetas");
 const seccionbusqueda = document.getElementById("tarjetasbusqueda");
@@ -67,19 +66,30 @@ function añadirtarjeta(eleccion){
 
                             <img src=${libro.volumeInfo.imageLinks.thumbnail} class="card-img-top" height="280px" width="100%" alt="libro">
                             <div class="card-body tarjetacuerpo">
+                                <h5>${libro.volumeInfo.title}</h5>
                                 <p class="card-text mt-2 letraoscura">${descripcion}</p>
                                 <a href="#" class="btn mt-2 botonoscuro id="botontarjeta">ver reseñas</a>
                             </div>`
         secciontarjetas.appendChild(tarjeta);
-        let boton = tarjeta.getElementsByClassName("circulo")[0];
-        let corazon = tarjeta.getElementsByClassName("corazon")[0];
+        // let boton = tarjeta.getElementsByClassName("circulo")[0];
+        // let corazon = tarjeta.getElementsByClassName("corazon")[0];
+
+        // boton.addEventListener("click", () => {
+        //     if (corazon.style.color !== "red") {
+        //         corazon.style.color = "red";
+        //     } else {
+        //         corazon.style.color = "rgb(125, 101, 82, 0.7)";
+        //     }
+        // });
+        const boton = tarjeta.querySelector(".circulo");
+        const corazon = tarjeta.querySelector(".corazon");
 
         boton.addEventListener("click", () => {
-            if (corazon.style.color !== "red") {
-                corazon.style.color = "red";
-            } else {
-                corazon.style.color = "rgb(125, 101, 82, 0.7)";
-            }
+        if (corazon.style.color !== "red") {
+            corazon.style.color = "red";
+        } else {
+            corazon.style.color = "rgb(125, 101, 82, 0.7)";
+        }
         });
         
     })
@@ -159,6 +169,17 @@ function añadirtarjetabusqueda(consulta){
             // if (libro.volumeInfo.categories){
             //     aplicarfiltro(libro.volumeInfo.categories,libro.selfLink,libro.volumeInfo.language,data.items.length);
             // }
+            const boton = tarjeta.querySelector(".circulo");
+            const corazon = tarjeta.querySelector(".corazon");
+
+            boton.addEventListener("click", () => {
+            if (corazon.style.color !== "red") {
+                corazon.style.color = "red";
+            } else {
+                corazon.style.color = "rgb(125, 101, 82, 0.7)";
+            }
+            });
+
             librosbuscados.push({
                 link: libro.selfLink,
                 idioma: libro.volumeInfo.language,
@@ -169,21 +190,21 @@ function añadirtarjetabusqueda(consulta){
             });
            
             }
-            let botones = document.getElementsByClassName("circulo");
-            let corazon = document.getElementsByClassName("corazon");
-            for(let valor = 0; valor < data.items.length; valor++ ){
-                botones[valor].addEventListener("click",()=>{
-                    // console.log("funciona click");
-                    // console.log(corazon[valor].style.color);
-                    if(corazon[valor].style.color != "red"){
-                        corazon[valor].style.color="red";
-                    }
-                    else{
-                        corazon[valor].style.color = "rgb(125, 101, 82,0.7)";
-                    }
+            // let botones = document.getElementsByClassName("circulo");
+            // let corazon = document.getElementsByClassName("corazon");
+            // for(let valor = 0; valor < data.items.length; valor++ ){
+            //     botones[valor].addEventListener("click",()=>{
+            //         // console.log("funciona click");
+            //         // console.log(corazon[valor].style.color);
+            //         if(corazon[valor].style.color != "red"){
+            //             corazon[valor].style.color="red";
+            //         }
+            //         else{
+            //             corazon[valor].style.color = "rgb(125, 101, 82,0.7)";
+            //         }
                     
-                })
-            }
+            //     })
+            // }
             
             console.log(titulos);
             console.log(diccionario);
@@ -233,15 +254,15 @@ function añadirtarjetabusqueda(consulta){
                                             <a href="#" class="btn mt-2 botonoscuro id="botontarjeta">ver reseñas</a>
                                         </div>`;
                 seccionbusqueda.appendChild(tarjeta);
-                let boton = tarjeta.getElementsByClassName("circulo")[0];
-                let corazon = tarjeta.getElementsByClassName("corazon")[0];
+                const boton = tarjeta.querySelector(".circulo");
+                const corazon = tarjeta.querySelector(".corazon");
 
                 boton.addEventListener("click", () => {
-                    if (corazon.style.color !== "red") {
-                        corazon.style.color = "red";
-                    } else {
-                        corazon.style.color = "rgb(125, 101, 82, 0.7)";
-                    }
+                if (corazon.style.color !== "red") {
+                    corazon.style.color = "red";
+                } else {
+                    corazon.style.color = "rgb(125, 101, 82, 0.7)";
+                }
                 });
 
                 })
