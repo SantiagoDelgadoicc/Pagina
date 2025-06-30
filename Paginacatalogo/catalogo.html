@@ -85,7 +85,7 @@
                                      <option value="romance">Romance</option>
                                      <option value="adventure">Aventura</option>
                                      <option value="fantasy">Fantasia</option>
-                                     <option value="Fiction">ficcion</option>
+                                     <option value="Fiction">Ficcion</option>
                                  </select>
                              </div>
                             <!-- orden alfabetico -->
@@ -98,7 +98,11 @@
                                 </select>
                              </div>
 
-                             <button class="btn botonoscuro" type="submit">Aplicar</button>
+                             <div style="display: flex; justify-content: end;">
+                                 <button class="btn botonoscuro" type="submit">Aplicar</button>
+                                 <button class="btn botonoscuro ms-2" id="borrar">borrar</button>
+                             </div>
+
 
                         </form>
                     </aside>
@@ -107,15 +111,20 @@
                 <!-- buscador y tarjetas -->
                 <div class="col-9">
                     <!-- busqueda -->
-                    <div class="row">
-                        <form class="d-flex justify-content-end" role="search" id="busqueda">
-                            <input class="form-control me-2 inputclaro" type="search" placeholder="Buscar..." aria-label="Search" name="elementobusqueda"/>
+                    <div class="row" style="display: flex; justify-content: space-between;">
+                        <button class="btn botonoscuro" style="width: 40px; display: flex; justify-content: center; align-items: center;" id="regresar">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
+                            </svg>
+                        </button>
+                        <form class="d-flex justify-content-end" role="search" id="busqueda" style=" width: 400px;">
+                            <input class="form-control me-2 inputclaro" type="search" placeholder="Busqueda..." aria-label="Search" name="elementobusqueda"/>
                             <!-- <select class="form-select mt-2 me-2 filtrochecks" aria-label="Default select example" name="buscarpor" id="selectorbusqueda">
                                     <option selected value="autor">Autor</option>
                                     <option value="titulo">Titulo</option>
                                     <option value="categoria">Categoria</option>
                             </select> -->
-                            <button class="btn botonoscuro" type="submit">Busqueda</button>
+                            <button class="btn botonoscuro" type="submit">Buscar</button>
                         </form>
                     </div>
                     <!-- tarjetas -->
@@ -206,7 +215,7 @@
             <!-- copyright -->
             <div class="row">
                 <div class="col-12 mt-3">
-                    <p class="text-center copy">&copy;2025 El rincón del lector.Todos los derechos reservados.</p>
+                    <p class="text-center copy">&copy;2025 El rincón del lector. Todos los derechos reservados.</p>
                 </div>
             </div>
         </div>
