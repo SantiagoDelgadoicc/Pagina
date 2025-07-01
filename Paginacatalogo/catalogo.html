@@ -9,9 +9,9 @@
     <script defer src="scripts.js"></script>
 
 </head>
-<body style="background-color: #c2bc99;">
+<body>
 
-    <nav id="menu" class="navbar navbar-expand-lg fixed-top" data-bs-theme="dark" style="background-color: #7d6552;">
+    <nav id="menu" class="navbar navbar-expand-lg fixed-top" data-bs-theme="dark">
         <div class="container-fluid">
 
             
@@ -59,7 +59,7 @@
                 <!-- filtro -->
                 <div class="col-3">
                     <aside class="filtro">
-                        <form class="formfiltro">
+                        <form class="formfiltro" id="filtros">
                             <!-- idioma -->
                              <div class="my-2">
                                  <label class="form-check-label" for="defaultCheck1"><h4 class="titulofiltro">Idioma</h4></label>
@@ -76,26 +76,33 @@
                             <!-- genero -->
                              <div class="my-4">
                                  <label class="form-check-label" for="defaultCheck1"><h4 class="titulofiltro">Genero</h4></label>
-                                 <select class="form-select mt-2 filtrochecks" aria-label="Default select example">
-                                     <option selected>seleccion</option>
-                                     <option value="terror">Terror</option>
-                                     <option value="comedia">Comedia</option>
-                                     <option value="cocina">Cocina</option>
-                                     <option value="cocina">Ciencia ficcion</option>
-                                     <option value="cocina">Romance</option>
-                                     <option value="cocina">Aventura</option>
-                                     <option value="cocina">Educacion</option>
+                                 <select class="form-select mt-2 filtrochecks" aria-label="Default select example" name="genero">
+                                     <option selected value="seleccion">seleccion</option>
+                                     <option value="Horror ">Terror</option>
+                                     <option value="comedy">Comedia</option>
+                                     <option value="autobiography">Autobiografia</option>
+                                     <option value="science Fiction">Ciencia ficcion</option>
+                                     <option value="romance">Romance</option>
+                                     <option value="adventure">Aventura</option>
+                                     <option value="fantasy">Fantasia</option>
+                                     <option value="Fiction">Ficcion</option>
                                  </select>
                              </div>
                             <!-- orden alfabetico -->
                              <div class="my-5">
                                  <label class="form-check-label" for="defaultCheck1"><h4 class="titulofiltro">Orden</h4></label>
-                                <select class="form-select mt-2 filtrochecks" aria-label="Default select example">
-                                    <option selected>ordenar por</option>
-                                    <option value="terror">ordenar A-Z</option>
-                                    <option value="comedia">ordenar Z-A</option>
+                                <select class="form-select mt-2 filtrochecks" aria-label="Default select example" name="orden">
+                                    <option selected value="ordenar por">ordenar por</option>
+                                    <option value="A-Z">ordenar A-Z</option>
+                                    <option value="Z-A">ordenar Z-A</option>
                                 </select>
                              </div>
+
+                             <div style="display: flex; justify-content: end;">
+                                 <button class="btn botonoscuro" type="submit">Aplicar</button>
+                                 <button class="btn botonoscuro ms-2" type="reset">borrar</button>
+                             </div>
+
 
                         </form>
                     </aside>
@@ -104,10 +111,20 @@
                 <!-- buscador y tarjetas -->
                 <div class="col-9">
                     <!-- busqueda -->
-                    <div class="row">
-                        <form class="d-flex justify-content-end" role="search">
-                            <input class="form-control me-2 inputclaro" type="search" placeholder="Titulo, autor o categoria" aria-label="Search"/>
-                            <button class="btn botonoscuro" type="submit">Search</button>
+                    <div class="row" id="busquedayregresar">
+                        <button class="btn botonoscuro"  id="regresar">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8m15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5z"/>
+                            </svg>
+                        </button>
+                        <form class="d-flex justify-content-end" role="search" id="busqueda" style=" width: 400px;">
+                            <input class="form-control me-2 inputclaro" type="search" placeholder="Busqueda..." aria-label="Search" name="elementobusqueda"/>
+                            <!-- <select class="form-select mt-2 me-2 filtrochecks" aria-label="Default select example" name="buscarpor" id="selectorbusqueda">
+                                    <option selected value="autor">Autor</option>
+                                    <option value="titulo">Titulo</option>
+                                    <option value="categoria">Categoria</option>
+                            </select> -->
+                            <button class="btn botonoscuro" type="submit">Buscar</button>
                         </form>
                     </div>
                     <!-- tarjetas -->
@@ -124,15 +141,16 @@
                             </div>
 
 
-                            <img src="img/libro portada.jpg" class="card-img-top" height="200px" width="100%" alt="libro">
+                            <img src="img/libro no encontrado.png" class="card-img-top" height="200px" width="100%" alt="libro">
                             <div class="card-body tarjetacuerpo">
-                                
+                                <h3>titulo</h3>
                                 <p class="card-text mt-2 letraoscura">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
                                 <a href="#" class="btn mt-2 botonoscuro botontarjeta">ver reseñas</a>
                             </div>
                         </div> -->
 
                     </div>
+                    <div class="row mt-2" id="tarjetasbusqueda"></div>
 
                 </div>
             </div>
@@ -197,7 +215,7 @@
             <!-- copyright -->
             <div class="row">
                 <div class="col-12 mt-3">
-                    <p class="text-center copy">&copy;2025 El rincón del lector.Todos los derechos reservados.</p>
+                    <p class="text-center copy">&copy;2025 El rincón del lector. Todos los derechos reservados.</p>
                 </div>
             </div>
         </div>

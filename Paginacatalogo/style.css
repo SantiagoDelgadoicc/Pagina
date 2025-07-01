@@ -1,4 +1,21 @@
 
+html body{
+    background-color: #c2bc99;
+    font-family: serif;
+}
+nav{
+    background-color: #7d6552;
+}
+#busquedayregresar{
+    display: flex;
+    justify-content: space-between;
+}
+#regresar{
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .letraoscura{
     color: #4e3732;
 }
@@ -7,7 +24,7 @@
 }
 .filtro{
     background-color: #af9d7c; 
-    height: 400px; 
+    height: 445px; 
     border-radius: 5px;
 }
 
@@ -144,4 +161,7 @@ div .tarjetacuerpo{
 
 .coloritemnav{
     color: #d5d2c0; 
+}
+#selectorbusqueda{
+    width: 120px;
 }
