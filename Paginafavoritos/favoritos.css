@@ -5,12 +5,12 @@ body{
 .gridgeneral {
   display: grid;
   grid-template-columns:1fr 1fr 1fr 1fr;
-  grid-template-rows:  400px 300px 300px;
-  border: 1px solid rgb(0, 0, 0);
+  grid-template-rows:  30px 1000px;
+  border: 1px solid rgba(0, 0, 0, 0);
   margin: 20px auto;
   padding: 10px;
   gap: 10px;
-  align-items: center;
+  align-items: start;
 }
 
 .wrapper {
@@ -23,11 +23,6 @@ main {
   flex: 1;
 }
 
-.containerfooter{
-    grid-column: 1/5;
-    grid-row: 4;
-}
-
 .titulo_logo{
     margin-left: 15px; 
     font-family: serif;
@@ -38,10 +33,63 @@ main {
     margin-top: 5px;
 }
 
-footer {
-  background-color: rgb(78, 55, 50);
-}
-
 .coloritemnav{
     color: #d5d2c0; 
+}
+
+.piepagina{
+    background-color: #7d6552;
+}
+
+.seccionpie{
+    list-style: none; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+}
+.titulopie{
+    font-size: 19px; 
+    color: #d5d2c0; 
+    font-family: serif;
+ }
+.itempie{
+    margin-top: 10px;
+}
+.enlacepie{
+    text-decoration: none; 
+    color: #c2bc99;
+}
+.enlacepie:hover{
+    color: #d5d2c0;
+}
+.seccioniconos{
+    margin-right: 30px;
+}
+.enlaceicon{
+    text-decoration: none;
+}
+.icon{
+    color:#c2bc99; 
+    width: 25px; 
+    height: 25px; 
+    margin-top: 20px; 
+    margin-left: 30px;
+}
+.icon:hover{
+    color: #d5d2c0;
+}
+.copy{
+    color: #c2bc99; 
+    margin-left: 19px;
+}
+
+.cajafav{
+  grid-column: 1/5;
+  grid-row:2;
+  align-items: start;
+}
+
+.cajanavbar{
+  grid-column: 1/5;
+  grid-row: 1;
 }
