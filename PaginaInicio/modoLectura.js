@@ -11,10 +11,9 @@ btnModo.addEventListener("click", () => {
     musica.play();
     musicaTimeout = setTimeout(() => {
       musica.pause();
-      musica.currentTime = 0;
     }, 983724982364000);
-  } else {
+  } 
+  else {
     musica.pause();
-    musica.currentTime = 0; // Reinicia la musica al pausar
   }
 });
