@@ -12,7 +12,7 @@ fetch("https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json
     //reccorrer los libros, obtengo los datos 
     libros.forEach(libro => {
       const titulo = libro.title || 'Sin título';
-      const imagen = libro.book_image || 'https://via.placeholder.com/100x150?text=No+Image';
+      const imagen = libro.book_image ;
       const autor = libro.author || 'Autor desconocido';
       const ranking_ventas = libro.rank || 'No hay descripción disponible';
       const editorial = libro.publisher || 'Editorial desconocida';
