@@ -139,6 +139,35 @@ body {
     margin-left: 19px;
 }
 
+#mapaContenedor {
+  width: 100%;
+  height: 500px; /* o cualquier alto que necesites */
+  border: 2px solid #7d6552; /* borde del mapa */
+}
+.titulo_mapa {
+  text-align: center;
+  font-size: 50px;
+  margin-top: 20px;
+  color: #7d6552; 
+}
+
+/* Frase Literaria */
+#frase-literaria {
+  font-size: 29px;
+  color: #333;
+  width: 700px;
+  margin: auto;
+  text-align: center;
+
+}
+
+#autor {
+  margin-top: 15px;
+  font-size: 22px;
+  color: #666;
+  margin: auto;
+  text-align: center;
+}
 
 /* Modo Noche */
 
@@ -160,6 +189,17 @@ body {
   color: #ddd;
   background-color: #575555;
 }
+.modo-noche #autor {
+  color: #ddd;
+  font-family: serif;
+
+}
+.modo-noche #frase-literaria{
+  color: #ddd;
+  font-size: 1.8rem;
+  max-width: 700px;
+  margin: auto;
+}
 .modo-noche .Introduccion {
   color: #ddd;
 }
@@ -179,6 +219,12 @@ body {
   background-color: #736f6f;
   color: #fff;
   border: 1px solid #f6f6f6;
+}
+.modo-noche .titulo_mapa {
+  color: #ddd;
+}
+.modo-noche #mapaContenedor {
+  border-color: #6e6e6e; /* borde del mapa en modo noche */
 }
 
 body.modo-noche::before {
