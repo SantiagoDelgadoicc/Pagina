@@ -1,5 +1,4 @@
 
-window.onload = () => {
   const mapaContenedor = document.getElementById("mapaContenedor");
   const infoUbicacion = document.getElementById("infoUbicacion");
 
@@ -69,4 +68,3 @@ window.onload = () => {
     .catch(error => {
       infoUbicacion.innerHTML = `<li class="list-group-item text-danger">No se pudo obtener la ubicacion</li>`;
     });
-};
