@@ -93,3 +93,22 @@ main {
   grid-column: 1/5;
   grid-row: 1;
 }
+
+.circulo{
+    padding: 5px; 
+    border-radius: 100%; 
+    background-color:rgb(213, 210, 192,0.9); 
+    width: 30px; 
+    height: 30px; 
+    position: absolute; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    border: 0; 
+    margin: 3px;
+}
+
+.basura{
+    margin-top:4px; 
+    color:rgb(125, 101, 82,0.7);
+}
