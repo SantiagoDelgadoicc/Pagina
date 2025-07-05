@@ -39,4 +39,11 @@ fetch(`https://www.googleapis.com/books/v1/volumes?q=subject:${eleccion}&maxResu
     } else {
         corazon.style.color = "rgb(125, 101, 82, 0.7)";
     }
-    });        
+    });
+
+//cerrar sesion
+  function cerrarSesion() {
+  localStorage.removeItem("usuarioActivo");
+  alert("Sesión cerrada correctamente");
+  window.location.href = "/Pagina/PaginaLogin/login.html";
+}

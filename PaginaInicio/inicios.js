@@ -40,3 +40,9 @@ fetch("https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json
 
 // key = 'Yg838GVGDPxGsV0EpVbAmKXRwzHNWDzB'; // API Key de NYT Books
 //
+//cerrar sesion
+  function cerrarSesion() {
+  localStorage.removeItem("usuarioActivo");
+  alert("Sesión cerrada correctamente");
+  window.location.href = "/Pagina/PaginaLogin/login.html";
+}

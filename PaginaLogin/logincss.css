@@ -1,11 +1,12 @@
 body{
+    font-family: serif;
     background-color: rgb(38, 32, 28);
     margin: 0;
 }
 .gridgeneral {
   display: grid;
   grid-template-columns:1fr 1fr 1fr 1fr;
-  grid-template-rows:  30px 1000px;
+  grid-template-rows:  40px 350px;
   border: 1px solid rgba(0, 0, 0, 0);
   margin: 20px auto;
   padding: 10px;
@@ -83,8 +84,8 @@ main {
     margin-left: 19px;
 }
 
-.cajafav{
-  grid-column: 1/5;
+.cajalogin{
+  grid-column: 2/4;
   grid-row:2;
   align-items: start;
 }
@@ -94,35 +95,38 @@ main {
   grid-row: 1;
 }
 
-.circulo{
-    padding: 5px; 
-    border-radius: 100%; 
-    background-color:rgb(213, 210, 192,0.9); 
-    width: 30px; 
-    height: 30px; 
-    position: absolute; 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    border: 0; 
-    margin: 3px;
-}
 
-.basura{
-    margin-top:4px; 
-    color:rgb(125, 101, 82,0.7);
-}
-
-#cerrar-sesion {
-  color: #d5d2c0;
-  text-decoration: none;
-  font-family: 'Georgia', serif;
-  background-color: transparent;
+.botoncambiar {
+  background: none;
   border: none;
+  color: #7d6552;
+  text-decoration: underline;
+  margin-top: 10px;
   cursor: pointer;
-  transition: color 0.3s ease;
 }
 
-#cerrar-sesion:hover {
-  color: #ffffff;
+.oculto {
+  display: none;
+}
+
+.mostrar {
+  display: block;
+}
+
+.botonregistro {
+  background-color: #a18e6c;
+  color: #d5d2c0;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  align-self: center;
+}
+
+.botonlogin {
+  background-color: #6b524a;
+  color: #d5d2c0;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  align-self: center;
 }
