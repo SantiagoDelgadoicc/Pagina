@@ -1,3 +1,4 @@
+//apis
 const apiKey = 'efaaf1c4-11e3-46d2-b756-584da68ed133';
 const noticiasContainer = document.getElementById('noticias');
 
@@ -26,3 +27,9 @@ fetch(`https://content.guardianapis.com/search?q=books&section=books&api-key=${a
     noticiasContainer.innerHTML = '<p class="text-danger">Error al cargar noticias.</p>';
     console.error(err);
   });
+//cerrar sesion
+  function cerrarSesion() {
+  localStorage.removeItem("usuarioActivo");
+  alert("Sesión cerrada correctamente");
+  window.location.href = "/Pagina/PaginaLogin/login.html";
+}

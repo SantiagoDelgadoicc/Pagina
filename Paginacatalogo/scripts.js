@@ -403,3 +403,9 @@ regresar.addEventListener("click",()=>{
 //verificar las consultas seguir validando
 //quiero colocar titulo a las tarjetas
 //limpiar codigo
+//cerrar sesion
+  function cerrarSesion() {
+  localStorage.removeItem("usuarioActivo");
+  alert("Sesión cerrada correctamente");
+  window.location.href = "/Pagina/PaginaLogin/login.html";
+}
