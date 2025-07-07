@@ -179,3 +179,7 @@ div .tarjetacuerpo{
 #cerrar-sesion:hover {
   color: #ffffff;
 }
+
+div .texto_{
+    text-align: center;
+}
