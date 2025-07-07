@@ -20,4 +20,7 @@ function cargarFrase() {
     });
 }
 
-window.onload = cargarFrase;
+cargarFrase(); // llamar a la funcion al cargar la pagina
+
+
+//window.onload = cargarFrase;
