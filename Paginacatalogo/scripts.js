@@ -92,6 +92,7 @@ function añadirtarjeta(eleccion){
         const botontarjeta = tarjeta.querySelector(".botontarjeta");
         botontarjeta.addEventListener("click",()=>{
             localStorage.setItem("libro", libro.selfLink);
+            localStorage.setItem("ids", libro.id);
             // console.log("Guardado en localStorage:", libro.selfLink);
             // let selflink=localStorage.getItem("libro");
             // console.log(selflink);
@@ -209,8 +210,11 @@ function añadirtarjetabusqueda(consulta){
 
                 const botontarjeta = tarjeta.querySelector(".botontarjeta");
                 botontarjeta.addEventListener("click",()=>{
-                    localStorage.setItem("libro", clave);
-                    console.log("Guardado en localStorage:", clave);
+                    localStorage.setItem("libro", libro.selfLink);
+                    localStorage.setItem("ids", libro.id);
+                    // console.log("Guardado en localStorage:", libro.selfLink);
+                    // let selflink=localStorage.getItem("libro");
+                    // console.log(selflink);
                 });
     
                 librosbuscados.push({
@@ -295,6 +299,7 @@ function añadirtarjetabusqueda(consulta){
                 const botontarjeta = tarjeta.querySelector(".botontarjeta");
                 botontarjeta.addEventListener("click",()=>{
                     localStorage.setItem("libro", data.selfLink);
+                    localStorage.setItem("ids", libro.id);
                     // console.log("Guardado en localStorage:", libro.selfLink);
                     // let selflink=localStorage.getItem("libro");
                     // console.log(selflink);

@@ -1,0 +1,89 @@
+html body{
+    background-color: #c2bc99;
+    font-family: serif;
+}
+
+.letraoscura{
+    color: #4e3732;
+}
+.titulo{
+    margin-top: 50px;
+}
+
+
+div .botonoscuro{
+    background-color: #7d6552; 
+    color:#c2bc99;
+}
+
+ div .botonoscuro:hover{
+    background-color: #6b524a;
+    color:#c2bc99;
+}
+
+div .inputclaro{
+    width: 250px; 
+    background-color: #d5d2c0; 
+    border: 0;
+}
+
+.piepagina{
+    background-color: #7d6552;
+}
+
+.seccionpie{
+    list-style: none; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+}
+.titulopie{
+    font-size: 19px; 
+    color: #d5d2c0; 
+    font-family: serif;
+ }
+.itempie{
+    margin-top: 10px;
+}
+.enlacepie{
+    text-decoration: none; 
+    color: #c2bc99;
+}
+.enlacepie:hover{
+    color: #d5d2c0;
+}
+
+.seccioniconos{
+    margin-right: 30px;
+}
+.enlaceicon{
+    text-decoration: none;
+}
+.icon{
+    color:#c2bc99; 
+    width: 25px; 
+    height: 25px; 
+    margin-top: 20px; 
+    margin-left: 30px;
+}
+.icon:hover{
+    color: #d5d2c0;
+}
+.copy{
+    color: #c2bc99; 
+    margin-left: 19px;
+}
+
+.titulo_logo{
+    margin-left: 15px; 
+    font-family: serif;
+    color: #d5d2c0;  
+    margin-top: 5px;
+    margin-left: 15px; 
+    font-family: serif; 
+    margin-top: 5px;
+}
+
+.coloritemnav{
+    color: #d5d2c0; 
+}
