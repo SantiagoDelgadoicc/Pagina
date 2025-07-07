@@ -47,6 +47,7 @@ function añadirtarjeta(eleccion){
                 }
                 intentos++;
         }
+        //se agrega al diccionario2
         let clave = libro.selfLink;
         diccionario2[clave]=libro.volumeInfo.title.toLowerCase();
         //por si no encuentra libro despues de 100 intentos
@@ -75,13 +76,13 @@ function añadirtarjeta(eleccion){
                             <div class="card-body tarjetacuerpo">
                                 <h5>${libro.volumeInfo.title}</h5>
                                 <p class="card-text mt-2 letraoscura">${descripcion}</p>
-                                <a href="/Paginareseñas/reseñas.html" target="_blank" class="btn mt-2 botonoscuro botontarjeta">ver reseñas</a>
+                                <a href="/Pagina/Paginareseñas/reseñas.html" target="_blank" class="btn mt-2 botonoscuro botontarjeta">ver reseñas</a>
                             </div>`
         secciontarjetas.appendChild(tarjeta);
 
         const boton = tarjeta.querySelector(".circulo");
         const corazon = tarjeta.querySelector(".corazon");
-
+        // se le agrega evento al boton donde esta el corazon
         boton.addEventListener("click", () => {
         if (corazon.style.color !== "red") {
             corazon.style.color = "red";
@@ -89,6 +90,7 @@ function añadirtarjeta(eleccion){
             corazon.style.color = "rgb(125, 101, 82, 0.7)";
         }
         });
+        // evento para guardar en localstorage informacion del libro
         const botontarjeta = tarjeta.querySelector(".botontarjeta");
         botontarjeta.addEventListener("click",()=>{
             localStorage.setItem("libro", libro.selfLink);
@@ -97,6 +99,7 @@ function añadirtarjeta(eleccion){
             // let selflink=localStorage.getItem("libro");
             // console.log(selflink);
         });
+        // se agrega a la lista de libros iniciales
          librosiniciales.push({
                  link: libro.selfLink,
                  idioma: libro.volumeInfo.language,
@@ -115,11 +118,15 @@ function añadirtarjeta(eleccion){
 const busqueda = document.getElementById("busqueda");
 busqueda.addEventListener("submit",(event) => {
     event.preventDefault();
+    // limpio libros buscados
     librosbuscados.length = 0;
+
     //limpio lo de la consulta anterior
     seccionbusqueda.innerHTML="";
+
     // console.log(event.target.elementobusqueda.value);
     // console.log(event.target.buscarpor.value);
+
     //obtengo lo que se quiere buscar
     const elemento=event.target.elementobusqueda.value;
     console.log(elemento);
@@ -138,30 +145,33 @@ function añadirtarjetabusqueda(consulta){
     })
      .then(data => {
         // console.log(data.items.length);
+
         //oculto las tarjetas iniciales
         if(!secciontarjetas.classList.contains("d-none")){
             secciontarjetas.classList.add("d-none");
         }
         // let libro = data.items[n];
-        let max=9;
-        let cont =0;
+        //si el total de item es cero no hay coincidencias
         if (data.totalItems == 0){
             console.log("no hay datos");
             agregartexto();
 
         }
         else{
+            //recorro items mostrando cada libro
             for(let i = 0; i < data.items.length; i++){
                 let libro=data.items[i];
                 let descripcion = libro.volumeInfo.description;
                 let imagen = libro.volumeInfo.imageLinks? libro.volumeInfo.imageLinks.thumbnail : "img/libro no encontrado.png";
                 let titulo = libro.volumeInfo.title;
                 titulos.push(titulo.toLowerCase());
+                //se añade a diccionario
                 let clave = libro.selfLink;
                 diccionario[clave]=titulo.toLowerCase();
-                console.log(libro.volumeInfo.categories);
+                //console.log(libro.volumeInfo.categories);
 
                 const text = document.getElementById("texto");
+                //si existe el texto lo elimino
                 if(text){
                     text.remove();
                 }
@@ -190,16 +200,14 @@ function añadirtarjetabusqueda(consulta){
                                             <div class="card-body tarjetacuerpo">
                                                 <h5>${titulo}</h5>
                                                 <p class="card-text mt-2 letraoscura">${descripcion}</p>
-                                                <a href="/Paginareseñas/reseñas.html" target="_blank" class="btn mt-2 botonoscuro botontarjeta">ver reseñas</a>
+                                                <a href="/Pagina/Paginareseñas/reseñas.html" target="_blank" class="btn mt-2 botonoscuro botontarjeta">ver reseñas</a>
                                             </div>`;
                 
                 seccionbusqueda.appendChild(tarjeta);
-                // if (libro.volumeInfo.categories){
-                //     aplicarfiltro(libro.volumeInfo.categories,libro.selfLink,libro.volumeInfo.language,data.items.length);
-                // }
+                
                 const boton = tarjeta.querySelector(".circulo");
                 const corazon = tarjeta.querySelector(".corazon");
-    
+                // se le agrega evento al boton donde esta el corazon
                 boton.addEventListener("click", () => {
                 if (corazon.style.color !== "red") {
                     corazon.style.color = "red";
@@ -207,7 +215,7 @@ function añadirtarjetabusqueda(consulta){
                     corazon.style.color = "rgb(125, 101, 82, 0.7)";
                 }
                 });
-
+                // evento para guardar en localstorage informacion del libro
                 const botontarjeta = tarjeta.querySelector(".botontarjeta");
                 botontarjeta.addEventListener("click",()=>{
                     localStorage.setItem("libro", libro.selfLink);
@@ -216,7 +224,7 @@ function añadirtarjetabusqueda(consulta){
                     // let selflink=localStorage.getItem("libro");
                     // console.log(selflink);
                 });
-    
+                // se agrega a la lista de libros buscados
                 librosbuscados.push({
                     link: libro.selfLink,
                     idioma: libro.volumeInfo.language,
@@ -228,8 +236,8 @@ function añadirtarjetabusqueda(consulta){
                
                 }
                 
-                console.log(titulos);
-                console.log(diccionario);
+                // console.log(titulos);
+                // console.log(diccionario);
     
                 
             }
@@ -248,11 +256,13 @@ function añadirtarjetabusqueda(consulta){
             return response.json();
             })
             .then(data => {
-                console.log("llego a tarjetas");
+                // console.log("llego a tarjetas");
+                //si las tarjetas iniciales no estan ocultas las oculto
                 if(!secciontarjetas.classList.contains("d-none")){
                     secciontarjetas.classList.add("d-none");
                 }
                 const text = document.getElementById("texto_filtro");
+                //si existe el texto lo elimino
                 if(text){
                     text.remove();
                 }
@@ -282,12 +292,12 @@ function añadirtarjetabusqueda(consulta){
                                         <div class="card-body tarjetacuerpo">
                                             <h5>${titulo}</h5>
                                             <p class="card-text mt-2 letraoscura">${descripcion}</p>
-                                            <a href="/Paginareseñas/reseñas.html" target="_blank" class="btn mt-2 botonoscuro botontarjeta"">ver reseñas</a>
+                                            <a href="/Pagina/Paginareseñas/reseñas.html" target="_blank" class="btn mt-2 botonoscuro botontarjeta"">ver reseñas</a>
                                         </div>`;
                 seccionbusqueda.appendChild(tarjeta);
                 const boton = tarjeta.querySelector(".circulo");
                 const corazon = tarjeta.querySelector(".corazon");
-
+                // se le agrega evento al boton donde esta el corazon
                 boton.addEventListener("click", () => {
                 if (corazon.style.color !== "red") {
                     corazon.style.color = "red";
@@ -295,7 +305,7 @@ function añadirtarjetabusqueda(consulta){
                     corazon.style.color = "rgb(125, 101, 82, 0.7)";
                 }
                 });
-
+                // evento para guardar en localstorage informacion del libro
                 const botontarjeta = tarjeta.querySelector(".botontarjeta");
                 botontarjeta.addEventListener("click",()=>{
                     localStorage.setItem("libro", data.selfLink);
@@ -310,7 +320,8 @@ function añadirtarjetabusqueda(consulta){
                 console.error('Ocurrió un error:', error.message);
             });
     }
-    
+
+//necesito esperar la respuesta antes de colocar la tarjeta al momento de ordenarlas
 async function mostrarTarjetasOrdenadas(keys) {
     for (let link of keys) {
         try {
@@ -330,6 +341,7 @@ async function mostrarTarjetasOrdenadas(keys) {
                 let diccionarioactual;
                 console.log("libros de busqueda:",librosbuscados);
                 console.log("libros iniciales:",librosiniciales);
+                //si el tamaño de libros buscados es 0 significa que estoy en libros iniciales
                 if(librosbuscados.length ==0){
                     librosactuales=librosiniciales;
                     diccionarioactual=diccionario2;
@@ -347,7 +359,10 @@ async function mostrarTarjetasOrdenadas(keys) {
                 //  console.log(elemento);
                 //  console.log(genero);
                 // console.log(ordenar);
+
+                //el usuario selecciono idioma/genero/orden combinados
                 if(idioma!="" && genero != "seleccion" || idioma!="" && genero != "seleccion" && ordenar != "ordenar por" || genero != "seleccion" && ordenar != "ordenar por" || idioma!="" && ordenar != "ordenar por"){
+                    //genero + orden
                     if(idioma!="" && genero != "seleccion" && ordenar != "ordenar por"){
                         console.log("idioma, seleccion y orden es dintinto de vacio");
                         let libroscoincidentes = {};
@@ -374,6 +389,7 @@ async function mostrarTarjetasOrdenadas(keys) {
                         
 
                     }
+                    // idioma + genero
                     else if(idioma!="" && genero != "seleccion"){
                         console.log("idioma, seleccion es dintinto de vacio");
                         let libroscoincidentes = {};
@@ -395,6 +411,7 @@ async function mostrarTarjetasOrdenadas(keys) {
                             }  
                         }
                     }
+                    //genero + orden
                     else if(genero != "seleccion" && ordenar != "ordenar por"){
                         let libroscoincidentes = {};
                         // keys.length = 0;
@@ -417,6 +434,7 @@ async function mostrarTarjetasOrdenadas(keys) {
                             }
                         }
                     }
+                    //idioma + orden
                     else if(idioma!="" && ordenar != "ordenar por"){
                         let libroscoincidentes = {};
                         // keys.length = 0;
@@ -441,6 +459,7 @@ async function mostrarTarjetasOrdenadas(keys) {
                         }
                     }
                 }
+                //si solo eligio idioma
                 else if (idioma!=""){
                     console.log("idioma");
                     let libroscoincidentes = {};
@@ -462,6 +481,7 @@ async function mostrarTarjetasOrdenadas(keys) {
                     }
 
                 }
+                //si solo eligio genero
                 else if(genero != "seleccion"){
                     console.log("seleccion es dintinto de vacio");
                     let libroscoincidentes = {};
@@ -482,6 +502,7 @@ async function mostrarTarjetasOrdenadas(keys) {
                             }  
                     }
                 }
+                //si solo eligio ordenar
                 else if (ordenar != "ordenar por"){
                     // console.log(keys);
                     if(ordenar == "A-Z"){
@@ -494,17 +515,21 @@ async function mostrarTarjetasOrdenadas(keys) {
                 
              })
 function ORDENAR(diccionario,ORDEN){
-    // if (ORDEN == "A-Z"){
+        //me entrega una lista con las claves del diccionario
         let items = Object.keys(diccionario).map(
         (key) => { return [key, diccionario[key]] });
+        // list = [(llave,elemento)]
+        //compara los titulos de los diferentes posiciones
         items.sort(
             (first, second) => {
                     return first[1].localeCompare(second[1]);
             }
         );
+        // si la opcion es al reves
         if(ORDEN == "Z-A"){
             items.reverse();
         }
+        //me entrega una lista con las llaves en posicion ordenada
         keys = items.map(
         (e) => { return e[0] });
 
@@ -512,14 +537,15 @@ function ORDENAR(diccionario,ORDEN){
         mostrarTarjetasOrdenadas(keys);
 
 }
-
+//para regresar al inicio con las tarjetas iniciales
 regresar.addEventListener("click",()=>{
     seccionbusqueda.innerHTML="";
     librosbuscados.length = 0;
     secciontarjetas.classList.remove("d-none");
 })
-
+//agrega texto cuando no hay resultados
 function agregartexto(){
+    //si las tarjetas iniciales no estan ocultas las oculto
     if(!secciontarjetas.classList.contains("d-none")){
             secciontarjetas.classList.add("d-none");
     }
@@ -530,10 +556,7 @@ function agregartexto(){
     seccionbusqueda.appendChild(texto);
 }
 }
-//aun falta aplicar filtros
-//verificar las consultas seguir validando
-//quiero colocar titulo a las tarjetas
-//limpiar codigo
+
 //cerrar sesion
   function cerrarSesion() {
   localStorage.removeItem("usuarioActivo");

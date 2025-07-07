@@ -1,10 +1,14 @@
 // console.log(localStorage.getItem("verlibro"));
+//link del libro
 let selflink=localStorage.getItem("libro");
 console.log(selflink);
+//id del libro
 let id=localStorage.getItem("ids");
 console.log(id);
+//obtengo el usuario que esta activo
 let usuario = localStorage.getItem("usuarioActivo") || "anonimo";
 console.log(usuario);
+
 // const key = "AIzaSyDhckEbK6NojqgGq6i4FKJUQ53DDI9zuZI";
 const key = "AIzaSyCivpuCvL77GaajRPsC7cjxVHKmedl6EFE"
 window.onload = () =>{
@@ -12,7 +16,7 @@ window.onload = () =>{
     const desccomen = document.getElementById("descripcioncomentario");
     const masinformacion = document.getElementById("masinfo");
     const formulario = document.getElementById("Comentarios")
-
+    //realizo la consulta
     fetch(selflink)
     .then(response => {
     if (!response.ok) throw new Error('No se pudieron obtener los datos');
@@ -26,8 +30,10 @@ window.onload = () =>{
         let numeropag = data.volumeInfo.pageCount;
         let editorial = data.volumeInfo.publisher;
         let fechapubli = data.volumeInfo.publishedDate;
-        let compraren = data.volumeInfo.canonicalVolumeLink;
+        let compraren = data.volumeInfo.canonicalVolumeLink; //link donde comprar para leer el libro(todavia no lo incorporo)
 
+        //creacion de los diferentes contenidos
+        //imagen + titulo + subtitulo
         const contenido = document.createElement('div');
         // tarjeta.className = 'card mx-3 p-0 mt-3 tarjeta';
         contenido.innerHTML = `<div class="row" style="margin-top: 100px;">
@@ -42,6 +48,7 @@ window.onload = () =>{
                                 </div>`
         imgtitulo.appendChild(contenido);
 
+        //descripcion + numero de paginas + editorial + fecha publicacion
         const contenido2 = document.createElement('div');
         contenido2.innerHTML = `<div class="row mt-3" style="background-color:#a18e6c; border-radius: 5px; ">
                                         <div class="col-6" >
@@ -80,9 +87,12 @@ window.onload = () =>{
     // let dato = {}
     // localStorage.setItem("librosdata",JSON.stringify(dato));
     // console.log(localStorage.getItem("librosdata"));
+
+    //obtengo los datos
     let libros= JSON.parse(localStorage.getItem("librosdata"));
     console.log(libros);
-    // console.log(typeof(l));
+
+    //si el libro no existe en los datos se agrega y se comenta algo inicial
     if(!libros[id]){
            console.log(id,"no se encuentra en la lista")
            libros[id] = {
@@ -96,47 +106,53 @@ window.onload = () =>{
            localStorage.setItem("librosdata", JSON.stringify(libros));
     }
     console.log(localStorage.getItem("librosdata"));
-    libros= JSON.parse(localStorage.getItem("librosdata"));
+    // libros= JSON.parse(localStorage.getItem("librosdata"));
+
+    //muestro los diferentes comentarios guardados en localstorage
       for(let i = 0; i < libros[id].comentarios.length; i++){
             let nombre = libros[id].comentarios[i].usuario;
             console.log(nombre);
             let texts = libros[id].comentarios[i].texto;
             console.log(texts)
-            if(i==0){
-                console.log("indice 0");
-                const contenido3 = document.createElement('div');
-                contenido3.innerHTML = `<div class="row mt-3">
+            
+            const contenido3 = document.createElement('div');
+            contenido3.innerHTML = `<div class="row mt-3">
                                                     <h6>${nombre}</h6>
                                                     <p>${texts}</p>
                                         </div>`
-                masinformacion.appendChild(contenido3);
-            }else{
-                const contenido3 = document.createElement('div');
-                contenido3.innerHTML = `<div class="row mt-3">
-                                                    <h6>${nombre}</h6>
-                                                    <p>${texts}</p>
-                                        </div>`
-                masinformacion.appendChild(contenido3);
-            }
+            masinformacion.appendChild(contenido3);
+            
      }
-    const fecha = new Date();
+
+    const fecha = new Date(); 
     // console.log(fecha.toLocaleDateString()); 
     // console.log(fecha.toLocaleTimeString()); 
     // console.log(localStorage.getItem("librosdata"));
+
+     //realizar comentario
     formulario.addEventListener("submit", (event) =>{
          event.preventDefault();
+         //contenido del comentario
          let comentario_ = event.target.coment.value;
          console.log(comentario_)
-         let libros= JSON.parse(localStorage.getItem("librosdata"));
+        //  let libros= JSON.parse(localStorage.getItem("librosdata"));
+
+        //se agrega el nuevo comentario
          libros[id].comentarios.push({
             usuario : usuario,
             texto : comentario_,
             fecha : fecha.toLocaleDateString(),
             hora : fecha.toLocaleTimeString()
          })
+
+         //se "actualiza"/modifica libros
          localStorage.setItem("librosdata", JSON.stringify(libros));
          // console.log(localStorage.getItem("libross"));
+
+         //se resetea el formulario
          formulario.reset();
+
+         //recarga la pagina para mostrar los cambios
          location.reload();
     })
     console.log(localStorage.getItem("librosdata"));
