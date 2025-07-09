@@ -1,163 +1,243 @@
-body{
-    background-color: #c2bc99;
+  body{
+      background-color: #c2bc99;
+      margin: 0;
+  }
+  .gridgeneral {
+    display: grid;
+    grid-template-columns:1fr 1fr 1fr 1fr;
+    grid-template-rows:  350px 1350px 250px 1px;
+
     margin: 0;
-}
-.gridgeneral {
-  display: grid;
-  grid-template-columns:1fr 1fr 1fr 1fr;
-  grid-template-rows:  350px 1350px 250px 1px;
-  border: 1px solid #c2bc99 ;
-  margin: 0;
-  padding: 10px;
-  gap: 10px;
-  width: 100%;
-  align-items: center;
-}
+    padding: 10px;
+    gap: 10px;
+    width: 100%;
+    align-items: center;
+  }
 
-p{
-  color: #4e3732;
-  align-self: center;
-}
+  p{
+    color: #4e3732;
+    align-self: center;
+  }
 
-h1{
-  color: #4e3732;
-  margin-top: 20px;
-  align-self: center;
-}
-.cajanoticias{
-  grid-column: 1/5;
-  grid-row: 2;
-}
+  h1{
+    color: #4e3732;
+    margin-top: 20px;
+    align-self: center;
+  }
+  .cajanoticias{
+    grid-column: 1/5;
+    grid-row: 2;
+    margin-top: 35px;
+  }
 
-.cajanavbar{
-  grid-column: 1/5;
-  grid-row: 1;
-}
+  .cajanavbar{
+    grid-column: 1/5;
+    grid-row: 1;
+  }
 
-.cajafooter{
-  grid-column: 1/5;
-  grid-row: 4;
-}
-
-.wrapper {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-main {
-  flex: 1;
-}
-
-.containerfooter{
+  .cajafooter{
     grid-column: 1/5;
     grid-row: 4;
-}
+  }
 
-.coloritemnav{
-    color: #d5d2c0; 
-}
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
 
-.titulo_logo{
-    margin-left: 15px; 
-    font-family: serif;
-    color: #d5d2c0;  
-    margin-top: 5px;
-    margin-left: 15px; 
-    font-family: serif; 
-    margin-top: 5px;
-}
+  main {
+    flex: 1;
+  }
 
-.card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  background-color: #af9d7c;
-  color: #f5f5f5;
-  border: none;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  height: 100%;
-}
+  .containerfooter{
+      grid-column: 1/5;
+      grid-row: 4;
+  }
 
-.card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-}
+  .coloritemnav{
+      color: #d5d2c0; 
+  }
 
-.card .card-title {
-  font-family: 'Georgia', serif;
-  color: #fff;
-}
+  .titulo_logo{
+      margin-left: 15px; 
+      font-family: serif;
+      color: #d5d2c0;  
+      margin-top: 5px;
+      margin-left: 15px; 
+      font-family: serif; 
+      margin-top: 5px;
+  }
 
-.card .btn {
-  align-self: start;
-  margin-top:auto;
-  border-color: #7d6552;
-  background-color: #7d6552;
-  color: #d5d2c0;
-}
+  .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #af9d7c;
+    color: #f5f5f5;
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    height: 100%;
+  }
 
-.card .btn:hover {
-  background-color: #6b524a;
-  color: #d5d2c0;
-}
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+  }
 
-.card-img-top {
-  height: 350px;
-  object-fit: cover;
-  width: 100%;
-}
+  .card .card-title {
+    font-family: 'Georgia', serif;
+    color: #fff;
+  }
 
-.card-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  flex-grow: 1;
-}
-
-
-.piepagina{
+  .card .btn {
+    align-self: start;
+    margin-top:auto;
+    border-color: #7d6552;
     background-color: #7d6552;
-}
+    color: #d5d2c0;
+  }
 
-.seccionpie{
-    list-style: none; 
-    display: flex; 
-    flex-direction: column; 
-    align-items: center;
-}
-.titulopie{
-    font-size: 19px; 
-    color: #d5d2c0; 
-    font-family: serif;
- }
-.itempie{
-    margin-top: 10px;
-}
-.enlacepie{
-    text-decoration: none; 
-    color: #c2bc99;
-}
-.enlacepie:hover{
+  .card .btn:hover {
+    background-color: #6b524a;
     color: #d5d2c0;
-}
-.seccioniconos{
-    margin-right: 30px;
-}
-.enlaceicon{
-    text-decoration: none;
-}
-.icon{
-    color:#c2bc99; 
-    width: 25px; 
-    height: 25px; 
-    margin-top: 20px; 
-    margin-left: 30px;
-}
-.icon:hover{
-    color: #d5d2c0;
-}
-.copy{
-    color: #c2bc99; 
-    margin-left: 19px;
-}
+  }
+
+  .card-img-top {
+    height: 350px;
+    object-fit: cover;
+    width: 100%;
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+  }
+
+
+  .piepagina{
+      background-color: #7d6552;
+  }
+
+  .seccionpie{
+      list-style: none; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center;
+  }
+  .titulopie{
+      font-size: 19px; 
+      color: #d5d2c0; 
+      font-family: serif;
+  }
+  .itempie{
+      margin-top: 10px;
+  }
+  .enlacepie{
+      text-decoration: none; 
+      color: #c2bc99;
+  }
+  .enlacepie:hover{
+      color: #d5d2c0;
+  }
+  .seccioniconos{
+      margin-right: 30px;
+  }
+  .enlaceicon{
+      text-decoration: none;
+  }
+  .icon{
+      color:#c2bc99; 
+      width: 25px; 
+      height: 25px; 
+      margin-top: 20px; 
+      margin-left: 30px;
+  }
+  .icon:hover{
+      color: #d5d2c0;
+  }
+  .copy{
+      color: #c2bc99; 
+      margin-left: 19px;
+  }
+
+
+  .footer_pagina{
+      background-color: #7d6552;
+      color: #d5d2c0;
+      margin-top: 30px;
+  }
+  .barra_navegacion {
+      background-color: #7d6552;
+      color: #d5d2c0;
+  }
+  /* Modo nocturno */
+  /* Modo Noche */
+
+  /* boton modo noche */
+  #modoNocheBtn {
+    top: 18px;
+    font-size: 21.5px;
+    background: none;
+    border: none;
+    cursor: pointer; /* manito al pasar x arriba */
+  }
+
+  /* estilo general para modo noche */
+  .modo-noche {
+    background-color: #121212;
+    color: #f1f1f1;
+  }
+  .modo-noche .h1_titulo {
+    color: #f1f1f1;
+    margin-top: 80px;
+  }
+  .modo-noche .p_titulo {
+    color: #ccc;
+  }
+
+  .modo-noche .barra_navegacion {
+    color: #ddd;
+    background-color: #575555;
+  }
+
+  .modo-noche .footer_pagina {
+    background-color: #575555;
+    color: #ddd;
+
+  }
+
+  .modo-noche .card {
+    background-color: #1e1e1e;
+    color: #ddd;
+    border:2px solid #575555;
+  }
+  .modo-noche .h5_noticias {
+    color: #f1f1f1;
+  }
+  .modo-noche .p_noticias {
+    color: #ccc;
+  }
+
+  .modo-noche .boton_noticias {
+    background-color: #736f6f;
+    color: #fff;
+    border: 1px solid #f6f6f6;
+  }
+
+  body.modo-noche::before {
+    content: "";
+    position: fixed;
+    width: 100%; 
+    height: 100%;
+    background: url('https://img.freepik.com/vector-gratis/fondo-libros-gafas-dibujados-mano_23-2147611297.jpg') repeat;
+    animation: Movimiento_hacia_abajo 200s linear infinite; /* linear para q no aumente la velocidad   */
+    opacity: 0.1;
+  }
+
+  @keyframes Movimiento_hacia_abajo {
+    0% { background-position: 0 0; }
+    100% { background-position: 10000px 10000px; }
+  }
