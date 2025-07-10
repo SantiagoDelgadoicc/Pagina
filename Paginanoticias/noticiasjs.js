@@ -14,9 +14,9 @@ fetch(`https://content.guardianapis.com/search?q=books&section=books&api-key=${a
         <div class="card h-100">
           ${noticia.fields.thumbnail ? `<img src="${noticia.fields.thumbnail}" class="card-img-top" alt="Imagen">` : ''}
           <div class="card-body">
-            <h5 class="card-title">${noticia.webTitle}</h5>
-            <p class="card-text">${noticia.fields.trailText || ''}</p>
-            <a href="${noticia.webUrl}" target="_blank" class="btn btn-outline-light">Leer más</a>
+            <h5 class="card-title h5_noticias">${noticia.webTitle}</h5>
+            <p class="card-text p_noticias">${noticia.fields.trailText || ''}</p>
+            <a href="${noticia.webUrl}" target="_blank" class="btn btn-outline-light boton_noticias">Leer más</a>
           </div>
         </div>
       `;

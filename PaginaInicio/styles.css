@@ -55,6 +55,11 @@ body {
       gap: 20px;
       justify-content: center;
 }
+.p_inicio {
+    text-align: center;
+    font-size: 20px;
+    color: #333;
+}
 
 .card {
   background: #ab9889;
@@ -67,6 +72,11 @@ body {
 .card img {
   max-width: 100px;
   margin: auto;
+}
+.titulo_config {
+    font-size: 20px;
+    margin-top: 10px;
+    color: #333;
 }
 .editorial_config_titulo{
     font-size: 22px;
@@ -92,9 +102,6 @@ body {
     color: #d5d2c0;
 
 }
-.piepagina{
-    background-color: #7d6552;
-}
 
 .seccionpie{
     list-style: none; 
@@ -104,7 +111,6 @@ body {
 }
 .titulopie{
     font-size: 19px; 
-    color: #d5d2c0; 
     font-family: serif;
  }
 .itempie{
@@ -206,6 +212,9 @@ body {
 .modo-noche .frase_literaria {
   color: #ddd;
 }
+.modo-noche .p_inicio {
+  color: #ddd;
+}
 .modo-noche .footer_pagina {
   background-color: #575555;
   color: #ddd;
@@ -214,7 +223,12 @@ body {
 .modo-noche .card {
   background-color: #1e1e1e;
   color: #ddd;
+  border: 2px solid #575555; /* borde de las tarjetas en modo noche */
 }
+.modo-noche .titulo_config {
+  color: #f1f1f1;
+}
+
 .modo-noche .boton_libros_destacados {
   background-color: #736f6f;
   color: #fff;
