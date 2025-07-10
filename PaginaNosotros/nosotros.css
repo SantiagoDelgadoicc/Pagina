@@ -15,6 +15,94 @@ body {
 .coloritemnav{
     color: #d5d2c0; 
 }
+/* NOSOTROS */
+.carousel-item img {
+    height: 400px;
+    margin: auto;
+    padding: 50px;
+    margin-top: 50px;
+}
+
+.card_nosotros_2{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    text-align: justify;
+    width: 87%;
+    margin: auto;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    
+}
+.card_nosotros_2 img{
+    height: 490px;
+    width: 50%;
+    border-radius: 8px;
+}
+.card_nosotros_2 p{
+    font-size: 20px;
+}
+
+.titulo_tabla_nosotros{
+    text-align: center;
+    font-size: 27px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+}
+#personas{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+}
+
+.imagenes_personas{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 2px solid #000000;
+    width: 98%;
+    height: 200px;
+}
+
+#personas img{
+    padding: 13px;
+}
+
+
+.contenedor_nosotros img{
+    width: 120px; 
+    height: 120px; 
+    object-fit: cover;
+    background-color: aliceblue;
+}
+
+.contenedor_nosotros h5{
+    margin-top: 10px; 
+    margin-bottom: 5px;
+    text-decoration: underline;
+    text-decoration-color: rgb(191, 85, 85);              
+    text-decoration-style: wavy;             /* puede ser solid, dotted, dashed, double, wavy */
+    text-decoration-thickness: 2.2px;          /* grosor de la línea */
+    font-size: 22px;
+}
+
+.contenedor_nosotros p{
+    margin-top: 5px; 
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+.contenedor_nosotros .card{
+    background: #af9d7c;
+    border-radius: 8px;
+    border: 0;
+}
+
 
 .piepagina{
     background-color: #7d6552;
