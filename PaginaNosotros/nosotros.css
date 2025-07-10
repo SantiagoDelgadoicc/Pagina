@@ -21,7 +21,9 @@ body {
     margin: auto;
     padding: 50px;
     margin-top: 50px;
+    
 }
+
 
 .card_nosotros_2{
     display: flex;
@@ -40,6 +42,7 @@ body {
     height: 490px;
     width: 50%;
     border-radius: 8px;
+    border: 2px solid #000000;
 }
 .card_nosotros_2 p{
     font-size: 20px;
@@ -102,7 +105,17 @@ body {
     border-radius: 8px;
     border: 0;
 }
+.tecnologias_apis{
+    display: flex;
+    flex-direction: row;
+    margin-top: 40px;
+    justify-content: center;
+    background-color: #c2bc99;  
+}
+.tecnologias_apis .card{
+    background-color: #ab9889;
 
+}
 
 .piepagina{
     background-color: #7d6552;

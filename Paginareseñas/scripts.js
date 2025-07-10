@@ -38,7 +38,7 @@ window.onload = () =>{
         //imagen + titulo + subtitulo
         const contenido = document.createElement('div');
         // tarjeta.className = 'card mx-3 p-0 mt-3 tarjeta';
-        contenido.innerHTML = `<div class="row" style="margin-top: 100px;">
+        contenido.innerHTML = `<div class="row imagen_reseñas" style="margin-top: 100px;">
                                     <div class="col-6" style="display: flex; flex-direction: column; justify-content: center; align-items: center; ">
                                         <img src="${imagen}" alt="" width="300" height="400">
                                     </div>
@@ -52,12 +52,12 @@ window.onload = () =>{
 
         //descripcion + numero de paginas + editorial + fecha publicacion
         const contenido2 = document.createElement('div');
-        contenido2.innerHTML = `<div class="row mt-3" style="background-color:#a18e6c; border-radius: 5px; ">
+        contenido2.innerHTML = `<div class="row mt-3 contenido2_reseñas" >
                                         <div class="col-6" >
                                             <div class="row mt-3 p-2">
                                                 <h5>Descripcion</h5>
-                                                <div class="overflow-auto p-3" style="max-height: 200px; background-color:#a18e6c">
-                                                    <p>${descripcion}</p>
+                                                <div class="overflow-auto p-2 descripcion_comentario" >
+                                                    <p class="">${descripcion}</p>
                                                 </div>
                                             </div>
                                         </div>
