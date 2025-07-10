@@ -1,13 +1,11 @@
-  body{
-      background-color: #c2bc99;
-      margin: 0;
-  }
-  .gridgeneral {
-    display: grid;
-    grid-template-columns:1fr 1fr 1fr 1fr;
-    grid-template-rows:  350px 1350px 250px 1px;
 
-body{
+.gridgeneral {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-rows: 350px 1350px 250px 1px;
+} /* 👈 Esto estaba faltando */
+
+body {
     background-color: #c2bc99;
     font-family: serif;
     margin: 0;
@@ -15,7 +13,7 @@ body{
     gap: 10px;
     width: 100%;
     align-items: center;
-  }
+}
 
   p{
     color: #4e3732;
@@ -217,7 +215,7 @@ h5{
   }
   .modo-noche .h1_titulo {
     color: #f1f1f1;
-    margin-top: 80px;
+
   }
   .modo-noche .p_titulo {
     color: #ccc;
@@ -262,11 +260,11 @@ h5{
     opacity: 0.1;
   }
 
-  @keyframes Movimiento_hacia_abajo {
-    0% { background-position: 0 0; }
-    100% { background-position: 10000px 10000px; }
-  }
+@keyframes Movimiento_hacia_abajo {
+  0% { background-position: 0 0; }
+  100% { background-position: 10000px 10000px; }
 }
+
 .seccioniconos{
     margin-right: 30px;
 }
