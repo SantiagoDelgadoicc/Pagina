@@ -23,7 +23,7 @@ fetch("https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json
       card.className = 'card';
       card.innerHTML = `
         <img src="${imagen}" >
-        <h3>${titulo}</h3>
+        <h3 class="titulo_config">${titulo}</h3>
         <p><em>${autor}</em></p>
         <p>${ranking_ventas}</p>
         <p class="editorial_config_titulo"><strong>Editorial:</strong> </p>
