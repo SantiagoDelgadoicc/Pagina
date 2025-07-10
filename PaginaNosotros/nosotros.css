@@ -150,3 +150,17 @@ body {
     color: #c2bc99; 
     margin-left: 19px;
 }
+
+#cerrar-sesion {
+  color: #d5d2c0;
+  text-decoration: none;
+  font-family: 'Georgia', serif;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+#cerrar-sesion:hover {
+  color: #ffffff;
+}

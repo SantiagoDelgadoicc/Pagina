@@ -165,3 +165,21 @@ div .tarjetacuerpo{
 #selectorbusqueda{
     width: 120px;
 }
+
+#cerrar-sesion {
+  color: #d5d2c0;
+  text-decoration: none;
+  font-family: 'Georgia', serif;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+#cerrar-sesion:hover {
+  color: #ffffff;
+}
+
+div .texto_{
+    text-align: center;
+}

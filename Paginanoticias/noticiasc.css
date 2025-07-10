@@ -7,6 +7,9 @@
     grid-template-columns:1fr 1fr 1fr 1fr;
     grid-template-rows:  350px 1350px 250px 1px;
 
+body{
+    background-color: #c2bc99;
+    font-family: serif;
     margin: 0;
     padding: 10px;
     gap: 10px;
@@ -29,6 +32,28 @@
     grid-row: 2;
     margin-top: 35px;
   }
+h5{
+  color: #4e3732;
+  margin-top: 10px;
+  align-self: center;
+}
+
+h1{
+  color: #4e3732;
+  margin-top: 20px;
+  align-self: center;
+}
+
+h5{
+  color: #4e3732;
+  margin-top: 10px;
+  align-self: center;
+}
+
+.cajanoticias{
+  grid-column: 1/5;
+  grid-row: 2;
+}
 
   .cajanavbar{
     grid-column: 1/5;
@@ -241,3 +266,38 @@
     0% { background-position: 0 0; }
     100% { background-position: 10000px 10000px; }
   }
+}
+.seccioniconos{
+    margin-right: 30px;
+}
+.enlaceicon{
+    text-decoration: none;
+}
+.icon{
+    color:#c2bc99; 
+    width: 25px; 
+    height: 25px; 
+    margin-top: 20px; 
+    margin-left: 30px;
+}
+.icon:hover{
+    color: #d5d2c0;
+}
+.copy{
+    color: #c2bc99; 
+    margin-left: 19px;
+}
+
+#cerrar-sesion {
+  color: #d5d2c0;
+  text-decoration: none;
+  font-family: 'Georgia', serif;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+#cerrar-sesion:hover {
+  color: #ffffff;
+}

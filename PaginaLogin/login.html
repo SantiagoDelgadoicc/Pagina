@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" integrity="sha380-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-    <link rel="stylesheet" href="favoritos.css">
+    <link rel="stylesheet" href="logincss.css">
     <title>Mis Libros Favoritos</title>
 </head>
 <body style="background-color: #c2bc99;">
@@ -35,7 +35,7 @@
                             <a class="nav-link  coloritemnav" aria-current="page" href="/Pagina/Paginacatalogo/catalogo.html">Catalogo</a>
                             </li>
                         <li class="nav-item">
-                            <a class="nav-link active coloritemnav" href="/Pagina/Paginafavoritos/librosGuardados.html">Favorito</a>
+                            <a class="nav-link coloritemnav" href="/Pagina/Paginafavoritos/librosGuardados.html">Favorito</a>
                         </li>
                         <li class="nav-item">
                                 <a class="nav-link coloritemnav" href="/Pagina/PaginaNosotros/nosotros.html">Nosotros</a>
@@ -43,11 +43,8 @@
                         <li class="nav-item">
                             <a class="nav-link coloritemnav" href="/Pagina/Paginanoticias/noticias.html">Novedades y noticias</a>
                         </li>
-                        <li>
-                            <a class="nav-link coloritemnav" href="/Pagina/PaginaLogin/login.html">Iniciar Sesion</a>
-                        </li>
                         <li class="nav-item">
-                            <button id="cerrar-sesion" class="nav-link btn btn-link" onclick="cerrarSesion()">Cerrar sesión</button>
+                            <a class="nav-link active coloritemnav" href="/Pagina/PaginaLogin/login.html">Iniciar Sesion</a>
                         </li>
                         </ul>
                     </div>
@@ -55,13 +52,40 @@
                 </nav>
             </header>
         </div>
-        <div class="cajafav">
+        <div class="cajalogin">
             <main class="flex-fill">
                 <div class="container my-5">
-                    <h1 class="text-white">Mis Libros Favoritos</h1>
-                    <div id="favoritos" class="row"></div>
-                </div>
-            </main>
+                    <div class="form-wrapper">
+                        <h2 id="formulario-titulo" class="text-center mb-4">Registro</h2>
+
+                        <!--registro-->
+                        <form id="registro-formulario" class="mostrar">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Nombre de usuario" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control" placeholder="Contraseña" required>
+                        </div>
+                            <button class="btn botonregistro mx-auto d-block" type="submit">Registrarse</button>
+                        </form>
+
+                        <!-- login -->
+                        <form id="login-formulario" class="oculto">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Nombre de usuario" required>
+                        </div>
+                        <div class="mb-3">
+                            <input type="password" class="form-control" placeholder="Contraseña" required>
+                        </div>
+                            <button type="submit" class="btn botonlogin mx-auto d-block">Iniciar sesión</button>
+                        </form>
+
+                        <!--boton para cambiar -->
+                        <div class="text-center">
+                        <button class="botoncambiar" onclick="alternar()">¿Ya tienes cuenta? Inicia sesión</button>
+                        </div>
+                    </div>
+            </div>
         </div>
     </div>
         <footer class="mt-5 piepagina">
@@ -127,6 +151,6 @@
                 </div>
             </div>
         </footer>
-  <script src="funcionesf.js"></script>
+  <script src="login.js"></script>
 </body>
 </html>
