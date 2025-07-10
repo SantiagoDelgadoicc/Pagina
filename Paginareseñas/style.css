@@ -87,3 +87,116 @@ div .inputclaro{
 .coloritemnav{
     color: #d5d2c0; 
 }
+
+div .star{
+    border: none;
+    background-color: #c2bc99;
+}
+.estrella{
+    color:yellow;
+}
+.estrellae{
+    color:yellow;
+}
+.botonbasura{
+    border: none;
+    background-color: #c2bc99;
+}
+
+/* Estilos nuevos - bastian*/
+
+.barra_navegacion {
+    background-color: #7d6552;
+    color: #d5d2c0;
+}
+.footer_pagina{
+    background-color: #7d6552;
+    color: #d5d2c0;
+}
+
+
+.contenido2_reseñas {
+    background-color: #a18e6c; 
+    border-radius: 5px; 
+}
+
+.descripcion_comentario {
+    max-height: 200px; 
+    background-color:#a18e6c
+}
+
+.puntuacion_reseñas {
+    font-size: 18px;
+}
+.imagen_reseñas {
+    margin-top: 100px;
+
+}
+
+/* Modo Noche */
+/* boton modo noche */
+#modoNocheBtn {
+  top: 18px;
+  font-size: 21.5px;
+  background: none;
+  border: none;
+  cursor: pointer; /* manito al pasar x arriba */
+}
+
+/* estilo general para modo noche */
+.modo-noche {
+  background-color: #121212;
+  color: #f1f1f1;
+}
+.modo-noche .barra_navegacion {
+  color: #ddd;
+  background-color: #575555;
+  border: 0;
+}
+.modo-noche .contenido2_reseñas {
+  background-color: #1e1e1e;
+  color: #ddd;
+  border-radius: 5px;
+  border: 2px solid #575555; /* borde de la descripcion en modo noche */
+}
+.modo-noche .descripcion_comentario {
+  background-color: #1e1e1e;
+  color: #ddd;
+}
+.modo-noche .color_textarea {
+  background-color: #333;
+  color: #f1f1f1;
+}
+.modo-noche .comentarios_reseñas {
+  color: #ddd;
+}
+.modo-noche .estrella_reseña {
+  color: #f1c40f; /* color amarillo para las estrellas */
+  background-color: transparent; /* fondo transparente */
+}
+
+.modo-noche .footer_pagina {
+  background-color: #575555;
+  color: #ddd;
+}
+.modo-noche .boton_reseñas {
+  background-color: #736f6f;
+  color: #fff;
+  border: 1px solid #f6f6f6;
+}
+
+body.modo-noche::before {
+  content: "";
+  position: fixed;
+  width: 100%; 
+  height: 100%;
+  background: url('https://img.freepik.com/vector-gratis/fondo-libros-gafas-dibujados-mano_23-2147611297.jpg') repeat;
+  animation: Movimiento_hacia_abajo 200s linear infinite; /* linear para q no aumente la velocidad   */
+  opacity: 0.1;
+  z-index: -1; /*  hace que este detrás del contenido */
+}
+
+@keyframes Movimiento_hacia_abajo {
+  0% { background-position: 0 0; }
+  100% { background-position: 10000px 10000px; }
+}
