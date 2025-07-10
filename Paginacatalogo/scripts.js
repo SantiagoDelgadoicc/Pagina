@@ -76,7 +76,7 @@ function añadirtarjeta(eleccion){
                             <div class="card-body tarjetacuerpo">
                                 <h5>${libro.volumeInfo.title}</h5>
                                 <p class="card-text mt-2 letraoscura">${descripcion}</p>
-                                <a href="/Pagina/Paginareseñas/reseñas.html" target="_blank" class="btn mt-2 botonoscuro botontarjeta">ver reseñas</a>
+                                <a href="/Paginareseñas/reseñas.html" target="_blank" class="btn mt-2 botonoscuro botontarjeta">ver reseñas</a>
                             </div>`
         secciontarjetas.appendChild(tarjeta);
 
@@ -131,7 +131,7 @@ busqueda.addEventListener("submit",(event) => {
     const elemento=event.target.elementobusqueda.value;
     console.log(elemento);
     
-    let consulta_ = `https://www.googleapis.com/books/v1/volumes?q=${elemento}&maxResults=20&key=${key}`
+    let consulta_ = `https://www.googleapis.com/books/v1/volumes?q=${elemento}&maxResults=40&key=${key}`
     console.log(consulta_);
     añadirtarjetabusqueda(consulta_);
     
@@ -200,7 +200,7 @@ function añadirtarjetabusqueda(consulta){
                                             <div class="card-body tarjetacuerpo">
                                                 <h5>${titulo}</h5>
                                                 <p class="card-text mt-2 letraoscura">${descripcion}</p>
-                                                <a href="/Pagina/Paginareseñas/reseñas.html" target="_blank" class="btn mt-2 botonoscuro botontarjeta">ver reseñas</a>
+                                                <a href="/Paginareseñas/reseñas.html" target="_blank" class="btn mt-2 botonoscuro botontarjeta">ver reseñas</a>
                                             </div>`;
                 
                 seccionbusqueda.appendChild(tarjeta);
@@ -292,7 +292,7 @@ function añadirtarjetabusqueda(consulta){
                                         <div class="card-body tarjetacuerpo">
                                             <h5>${titulo}</h5>
                                             <p class="card-text mt-2 letraoscura">${descripcion}</p>
-                                            <a href="/Pagina/Paginareseñas/reseñas.html" target="_blank" class="btn mt-2 botonoscuro botontarjeta"">ver reseñas</a>
+                                            <a href="/Paginareseñas/reseñas.html" target="_blank" class="btn mt-2 botonoscuro botontarjeta"">ver reseñas</a>
                                         </div>`;
                 seccionbusqueda.appendChild(tarjeta);
                 const boton = tarjeta.querySelector(".circulo");
@@ -362,7 +362,7 @@ async function mostrarTarjetasOrdenadas(keys) {
 
                 //el usuario selecciono idioma/genero/orden combinados
                 if(idioma!="" && genero != "seleccion" || idioma!="" && genero != "seleccion" && ordenar != "ordenar por" || genero != "seleccion" && ordenar != "ordenar por" || idioma!="" && ordenar != "ordenar por"){
-                    //genero + orden
+                    //genero + orden + idioma
                     if(idioma!="" && genero != "seleccion" && ordenar != "ordenar por"){
                         console.log("idioma, seleccion y orden es dintinto de vacio");
                         let libroscoincidentes = {};
@@ -561,5 +561,5 @@ function agregartexto(){
   function cerrarSesion() {
   localStorage.removeItem("usuarioActivo");
   alert("Sesión cerrada correctamente");
-  window.location.href = "/Pagina/PaginaLogin/login.html";
+  window.location.href = "/PaginaLogin/login.html";
 }

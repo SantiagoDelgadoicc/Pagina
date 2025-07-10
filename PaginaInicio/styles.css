@@ -102,9 +102,6 @@ body {
     color: #d5d2c0;
 
 }
-.piepagina{
-    background-color: #7d6552;
-}
 
 .seccionpie{
     list-style: none; 
@@ -114,7 +111,6 @@ body {
 }
 .titulopie{
     font-size: 19px; 
-    color: #d5d2c0; 
     font-family: serif;
  }
 .itempie{
