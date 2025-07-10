@@ -84,8 +84,8 @@ window.onload = () =>{
         console.error('Ocurrió un error:', error.message);
     });
 
-    // let dato = {}
-    // localStorage.setItem("librosdata",JSON.stringify(dato));
+    //let dato = {}
+    //localStorage.setItem("librosdata",JSON.stringify(dato));
     // console.log(localStorage.getItem("librosdata"));
 
     //obtengo los datos
