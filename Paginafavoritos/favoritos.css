@@ -1,11 +1,21 @@
 body{
     background-color: rgb(38, 32, 28);
     margin: 0;
+    font-family: serif;
+}
+h1{
+    color: #4e3732;
+    margin-top: 20px;
+    align-self: center;
+}
+p{
+    color: #4e3732;
+    align-self: center;
 }
 .gridgeneral {
   display: grid;
   grid-template-columns:1fr 1fr 1fr 1fr;
-  grid-template-rows:  30px 1000px;
+  grid-template-rows:  auto auto;
   border: 1px solid rgba(0, 0, 0, 0);
   margin: 20px auto;
   padding: 10px;
@@ -87,6 +97,7 @@ main {
   grid-column: 1/5;
   grid-row:2;
   align-items: start;
+  height: auto;
 }
 
 .cajanavbar{
@@ -125,4 +136,103 @@ main {
 
 #cerrar-sesion:hover {
   color: #ffffff;
+}
+
+#favoritos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 10px;
+  height: auto;
+}
+
+.tarjeta {
+  width: 18rem;
+  border: none;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  background-color: #d5d2c0;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: default;
+}
+
+.tarjetacuerpo {
+  background-color: #a18e6c;
+  border-bottom-right-radius: 5px;
+  border-bottom-left-radius: 5px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #3c342e;
+  font-family: Georgia, serif;
+}
+
+.tarjetacuerpo h5 {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.tarjetacuerpo p {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: #3c342e;
+}
+
+.botonoscuro {
+  background-color: #7d6552;
+  color: #c2bc99;
+  border: none;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  align-self: flex-start; 
+  margin-top: 0.5rem;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.botonoscuro:hover {
+  background-color: #6b524a;
+  color: #c2bc99;
+}
+
+.posicioncirculo {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.circulo {
+  padding: 5px;
+  border-radius: 50%;
+  background-color: rgba(213, 210, 192, 0.9);
+  width: 30px;
+  height: 30px;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.circulo:hover {
+  background-color: rgba(107, 82, 74, 0.9);
+}
+
+.basura {
+  color: rgba(125, 101, 82, 0.7);
+  margin-top: 4px;
+}
+
+.letraoscura {
+  color: #3c342e;
 }
