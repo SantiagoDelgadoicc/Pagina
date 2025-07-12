@@ -76,20 +76,14 @@ function añadirtarjeta(eleccion){
                             <div class="card-body tarjetacuerpo">
                                 <h5>${libro.volumeInfo.title}</h5>
                                 <p class="card-text mt-2 letraoscura">${descripcion}</p>
-                                <a href="/Paginareseñas/reseñas.html" target="_blank" class="btn mt-2 botonoscuro botontarjeta">ver reseñas</a>
+                                <a href="/Pagina/Paginareseñas/reseñas.html" target="_blank" class="btn mt-2 botonoscuro botontarjeta">ver reseñas</a>
                             </div>`
         secciontarjetas.appendChild(tarjeta);
 
         const boton = tarjeta.querySelector(".circulo");
         const corazon = tarjeta.querySelector(".corazon");
         // se le agrega evento al boton donde esta el corazon
-        boton.addEventListener("click", () => {
-        if (corazon.style.color !== "red") {
-            corazon.style.color = "red";
-        } else {
-            corazon.style.color = "rgb(125, 101, 82, 0.7)";
-        }
-        });
+        agregarfavorito(boton, corazon, libro);
         // evento para guardar en localstorage informacion del libro
         const botontarjeta = tarjeta.querySelector(".botontarjeta");
         botontarjeta.addEventListener("click",()=>{
@@ -208,13 +202,7 @@ function añadirtarjetabusqueda(consulta){
                 const boton = tarjeta.querySelector(".circulo");
                 const corazon = tarjeta.querySelector(".corazon");
                 // se le agrega evento al boton donde esta el corazon
-                boton.addEventListener("click", () => {
-                if (corazon.style.color !== "red") {
-                    corazon.style.color = "red";
-                } else {
-                    corazon.style.color = "rgb(125, 101, 82, 0.7)";
-                }
-                });
+                agregarfavorito(boton, corazon, libro);
                 // evento para guardar en localstorage informacion del libro
                 const botontarjeta = tarjeta.querySelector(".botontarjeta");
                 botontarjeta.addEventListener("click",()=>{
@@ -298,13 +286,7 @@ function añadirtarjetabusqueda(consulta){
                 const boton = tarjeta.querySelector(".circulo");
                 const corazon = tarjeta.querySelector(".corazon");
                 // se le agrega evento al boton donde esta el corazon
-                boton.addEventListener("click", () => {
-                if (corazon.style.color !== "red") {
-                    corazon.style.color = "red";
-                } else {
-                    corazon.style.color = "rgb(125, 101, 82, 0.7)";
-                }
-                });
+                agregarfavorito(boton, corazon, libro);
                 // evento para guardar en localstorage informacion del libro
                 const botontarjeta = tarjeta.querySelector(".botontarjeta");
                 botontarjeta.addEventListener("click",()=>{
@@ -562,4 +544,38 @@ function agregartexto(){
   localStorage.removeItem("usuarioActivo");
   alert("Sesión cerrada correctamente");
   window.location.href = "/PaginaLogin/login.html";
+}
+//guardar libro en favorito
+function agregarfavorito(boton, corazon, libro) {
+  boton.addEventListener("click", () => {
+    const usuarioActivo = localStorage.getItem("usuarioActivo");
+    if (!usuarioActivo) {
+      alert("Debes iniciar sesión para guardar libros.");
+      return;
+    }
+
+    const users = JSON.parse(localStorage.getItem("users")) || {};
+    const user = users[usuarioActivo];
+    if (!user) return;
+
+    const libroFavorito = {
+      link: libro.selfLink,
+      titulo: libro.volumeInfo?.title || "Título no disponible",
+      imagen: libro.volumeInfo?.imageLinks?.thumbnail || "img/libro no encontrado.png",
+      descripcion: libro.volumeInfo?.description || "Descripción no disponible"
+    };
+
+    const yaGuardado = user.favoritos.some(fav => fav.link === libroFavorito.link);
+
+    if (!yaGuardado) {
+      user.favoritos.push(libroFavorito);
+      corazon.style.color = "red";
+    } else {
+      user.favoritos = user.favoritos.filter(fav => fav.link !== libroFavorito.link);
+      corazon.style.color = "rgb(125, 101, 82, 0.7)";
+    }
+
+    users[usuarioActivo] = user;
+    localStorage.setItem("users", JSON.stringify(users));
+  });
 }
