@@ -79,9 +79,9 @@ div .inputclaro{
     font-family: serif;
     color: #d5d2c0;  
     margin-top: 5px;
-    margin-left: 15px; 
-    font-family: serif; 
-    margin-top: 5px;
+    /* margin-left: 15px;  */
+    /* font-family: serif;  */
+    /* margin-top: 5px; */
 }
 
 .coloritemnav{
@@ -131,6 +131,11 @@ div .star{
 .imagen_reseñas {
     margin-top: 100px;
 
+}
+.contenedorcomentarios{
+    border:5px double #7d6552; 
+    padding: 10px; 
+    border-radius: 5px;
 }
 
 /* Modo Noche */
@@ -183,6 +188,12 @@ div .star{
   background-color: #736f6f;
   color: #fff;
   border: 1px solid #f6f6f6;
+}
+
+.modo-noche .contenedorcomentarios{
+    border:5px double #575555; 
+    padding: 10px; 
+    border-radius: 5px;
 }
 
 body.modo-noche::before {
