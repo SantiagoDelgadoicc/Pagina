@@ -15,6 +15,7 @@ nav{
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 45px;
 }
 .letraoscura{
     color: #4e3732;
@@ -31,7 +32,9 @@ nav{
 .formfiltro{
     padding: 10px;
 }
-
+#buscar{
+    height: 40px;
+}
 div .filtrochecks{
     background-color: #d5d2c0;
     border: 0;
@@ -51,6 +54,7 @@ div .inputclaro{
     width: 250px; 
     background-color: #d5d2c0; 
     border: 0;
+    height: 40px;
 }
 .posicioncirculo{
     display: flex; 
@@ -163,7 +167,8 @@ div .tarjetacuerpo{
     color: #d5d2c0; 
 }
 #selectorbusqueda{
-    width: 120px;
+    width: 142px;
+    height: 40px;
 }
 
 #cerrar-sesion {
