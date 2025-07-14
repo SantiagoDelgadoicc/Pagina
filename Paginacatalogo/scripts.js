@@ -4,8 +4,6 @@ window.onload = () =>{
 const categoriasgenero = ["horror", "science fiction","fantasy","romance",
     "thrillers","adventure","drama","humor","computers","history"];
 let ids = [];
-let diccionariobuscados={};
-let diccionarioinicial={};
 let keys = [];
 let librosbuscados=[];
 let librosiniciales=[];
@@ -53,11 +51,6 @@ function añadirtarjeta(eleccion){
         let imagen = libro.volumeInfo.imageLinks.thumbnail;
         let titulo = libro.volumeInfo.title? libro.volumeInfo.title : "sin titulo" ;
 
-        if(titulo && libro.selfLink){
-            let clave = libro.selfLink;
-            diccionarioinicial[clave]=titulo.toLowerCase();
-        }
-        
         //por si no encuentra libro despues de 100 intentos
         if (!encontrado) {
             console.log("no se encontro libro");
@@ -86,7 +79,6 @@ function añadirtarjeta(eleccion){
     let ultimaconsulta = "";
     btnmasresultados.addEventListener("click", ()=>{
         librosbuscados.length = 0;
-        diccionariobuscados = {};
         startindex += 40;
         seccionbusqueda.innerHTML="";
         const consulta = `${ultimaconsulta}${startindex}&maxResults=40&key=${key}`;
@@ -97,7 +89,6 @@ function añadirtarjeta(eleccion){
         event.preventDefault();
         // limpio libros buscados
         librosbuscados.length = 0;
-        diccionariobuscados = {};
         
         //limpio lo de la consulta anterior
         seccionbusqueda.innerHTML="";
@@ -147,12 +138,6 @@ function añadirtarjetabusqueda(consulta){
                  let descripcion = libro.volumeInfo.description;
                  let imagen = libro.volumeInfo.imageLinks? libro.volumeInfo.imageLinks.thumbnail : "img/libro no encontrado.png";
                  let titulo = libro.volumeInfo.title? libro.volumeInfo.title : "sin titulo";
-                
-                //se añade a diccionario
-                if(titulo && libro.selfLink){
-                    let clave = libro.selfLink;
-                    diccionariobuscados[clave]=titulo.toLowerCase();
-                }
 
                 const text = document.getElementById("texto");
                 //si existe el texto lo elimino
@@ -210,7 +195,7 @@ function añadirtarjetabusqueda(consulta){
     }
 
 //necesito esperar la respuesta antes de colocar la tarjeta al momento de ordenarlas
-async function mostrarTarjetasOrdenadas(keys) {
+async function mostrarTarjetasordenadas(keys) {
     for (let link of keys) {
         try {
             await tarjetas(link);
@@ -268,17 +253,14 @@ function estructuratarjeta(libro,contenedor,descripcion,imagen,titulo){
         formulariofiltro.addEventListener("submit",(event) => {
                  event.preventDefault();
                 let librosactuales;
-                let diccionarioactual;
                 console.log("libros de busqueda:",librosbuscados);
                 console.log("libros iniciales:",librosiniciales);
                 //si el tamaño de libros buscados es 0 significa que estoy en libros iniciales
                 if(librosbuscados.length ==0){
                     librosactuales=librosiniciales;
-                    diccionarioactual=diccionarioinicial;
                 }
                 else{
                     librosactuales=librosbuscados;
-                    diccionarioactual=diccionariobuscados;
                 }
                 
                 seccionbusqueda.innerHTML="";
@@ -286,18 +268,13 @@ function estructuratarjeta(libro,contenedor,descripcion,imagen,titulo){
                 let idioma = event.target.idioma.value;
                 let genero = event.target.genero.value;
                 let ordenar = event.target.orden.value;
-                //si el usuario decide solo ordenar
-                if (ordenar != "ordenar por" && idioma == "" && genero == "seleccion") {
-                    ORDENAR(diccionarioactual, ordenar);
-                    return; 
-                }
 
                 const librosfiltrados = {};
                 for (const libro of librosactuales) {
                     const IDIOMA = idioma == "" || libro.idioma === idioma;//true si idioma es vacio o idioma es igual a idioma del libro
                     const GENERO = genero == "seleccion" || libro.categorias.includes(genero);//true si no se selecciono genero y true si coincide genero
                     if (IDIOMA && GENERO){
-                        librosfiltrados[libro.link] = libro.titulo;
+                        librosfiltrados[libro.link] = libro.titulo.toLowerCase();
                     }
                 }
 
@@ -305,7 +282,8 @@ function estructuratarjeta(libro,contenedor,descripcion,imagen,titulo){
 
                 if (Object.keys(librosfiltrados).length == 0) {
                     agregartexto(); 
-                } 
+                }
+                 
                 else if (ordenar != "ordenar por") {
                     ORDENAR(librosfiltrados, ordenar);
                 } 
@@ -336,14 +314,13 @@ function ORDENAR(diccionario,ORDEN){
         keys = items.map(
         (e) => { return e[0] });
 
-        mostrarTarjetasOrdenadas(keys);
+        mostrarTarjetasordenadas(keys);
 
 }
 //para regresar al inicio con las tarjetas iniciales
 regresar.addEventListener("click",()=>{
     seccionbusqueda.innerHTML="";
     librosbuscados.length = 0;
-    diccionariobuscados = {};
     secciontarjetas.classList.remove("d-none");
     masresultados.classList.add("d-none");
 })
