@@ -13,7 +13,8 @@ window.onload = () => {
 // sacar los favoritos del usuario activo
   const users = JSON.parse(localStorage.getItem("users")) || {};
   const user = users[usuarioActivo];
-  let favoritos = Array.isArray(user?.favoritos) ? [...user.favoritos] : [];
+  let favoritos = Array.isArray(user?.favoritos) ? [...user.favoritos] : [];// encadenamiento opcional para evitar que user sea indefinido, verifica que el array sea array ,
+  //operador spread para clonar el array para no modificar directamente el original
 // verificar si hay favoritos
   if (favoritos.length === 0) {
     contenedor.innerHTML = "<p class='text-white'>No tienes libros guardados.</p>";
@@ -51,7 +52,7 @@ window.onload = () => {
 
   // boton eliminar y reseña
   contenedor.addEventListener("click", (e) => {
-    const botonResena = e.target.closest(".botontarjeta");
+    const botonResena = e.target.closest(".botontarjeta");// el boton ms cercano del dom donde se hizo click (funciona como un addeventListener)
     const botonEliminar = e.target.closest(".eliminar-fav");
 
     if (botonResena) {
@@ -64,16 +65,15 @@ window.onload = () => {
     }
 
     if (botonEliminar) {
-      const index = parseInt(botonEliminar.dataset.index);
+      const index = parseInt(botonEliminar.dataset.index);// constante index convertida en numero de boton eliminar, y la posicion del libro
       const confirmacion = confirm("¿Deseas eliminar este libro de tus favoritos?");
       if (confirmacion) {
         // eliminar y actualizar
-        favoritos.splice(index, 1);
+        favoritos.splice(index, 1); // elimina 1 libro en la posicion index
         user.favoritos = favoritos;
         users[usuarioActivo] = user;
         localStorage.setItem("users", JSON.stringify(users));
-        contenedor.innerHTML = "";
-        window.onload(); 
+        location.reload();
       }
     }
   });
