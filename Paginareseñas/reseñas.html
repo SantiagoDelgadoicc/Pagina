@@ -14,7 +14,7 @@
         <nav id="menu" class="navbar navbar-expand-lg fixed-top barra_navegacion" data-bs-theme="dark" >
                 <div class="container-fluid">
     
-                    <a class="navbar-brand d-flex" href="#" style="justify-content: center; align-items: center;">
+                    <a class="navbar-brand d-flex contenedorlogo" href="#">
                         <svg class="coloritemnav" xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class="bi bi-book" viewBox="0 0 16 16">
                             <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783"/>   
                         </svg>
@@ -69,38 +69,19 @@
                             </svg>
             </button>
             <div id="imagentitulo">
-                <!-- imagen
-                <div class="col" style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                    <img src="img/libro no encontrado.png" alt="" width="300" height="400">
-                </div>
-                titulo
-                <div class="col" style="display: flex; flex-direction: column; justify-content: end;">
-                    <h1>titulo del libro</h1>
-                    <h3>subtitulo</h3>
-                </div> -->
+                <!-- aqui estaran imagen + titulo -->
             </div>
-            <div id="descripcioncomentario" class="">
-                <!-- descripcion y comentarios -->
-                <!-- <div class="col-6">
-                    <div class="row mt-3">
-                        <h5>descripcion</h5>
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Neque eaque facere nesciunt a adipisci maiores? Amet excepturi porro nostrum iste suscipit dolore eum quo aliquid omnis. Eum perspiciatis perferendis architecto.</p>
-                    </div>
-                    <div class="row">
-                        <h5>comentarios</h5>
-                        <h6>Elco mentario</h6>
-                        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Aliquid quibusdam expedita, rem, ullam temporibus, voluptates provident praesentium accusamus cum facilis quam tempora id quaerat excepturi eos minima at iste ipsa!</p>
-                    </div> -->
-    
+            <div id="descripcioninformacion">
+                <!-- aqui la descripcion + informacion -->
                 </div>
-                <!-- mas info -->
+                
                  <div class="mt-3 contenedorcomentarios">
                      <div>
                         <h5 class="mt-3 comentarios_reseñas letraoscura">Comentarios</h5>
-                        <div id="masinfo">
+                        <div id="comentarios">
                         </div>
                         <div class="d-none" id="mostrarmascomentarios">
-                                 <!-- <button type="button" class="btn" style="border: 0;">Cargar mas comentarios</button> -->
+                                 
                                  <a class="letraoscura enlacecomentario" role="button" id="cargarmascomentarios">Cargar mas comentarios
                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
                                      <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
@@ -108,33 +89,21 @@
                                  </a>
                         </div>
                         <div id="mascomentarios">
-                            
+                            <!-- donde se mostraran mas comentarios -->
                         </div>
                              <div class="d-none" id="mostrarmenoscomentarios">
-                                 <!-- <button type="button" class="btn" style="border: 0;">Cargar mas comentarios</button> -->
+                                 
                                  <a class="letraoscura enlacecomentario" role="button" id="cargarmenoscomentarios">Mostrar menos comentarios
                                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-up-fill" viewBox="0 0 16 16">
                                      <path d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z"/>
                                      </svg>
                                  </a>
-                        </div>
-                         <!-- <div class="row mt-3" >
-                            <h5>N° paginas</h5>
-                            <p>Lorem ipsum dolor sit amet.</p>
-                        </div>
-                        <div class="row">
-                            <h5>Editorial</h5>
-                            <p>Lorem ipsum dolor sit amet.</p>
-                        </div>
-                        <div class="row">
-                            <h5>fecha de publicacion</h5>
-                            <p>Lorem ipsum dolor sit amet.</p>
-                        </div> -->
-                     </div>
+                             </div>
+                         </div>
                      <div>
                         <div class="row">
-                            <div class="col-12" style="display: flex;">
-                                <!-- <img src="img/libro no encontrado.png" alt="" style="width: 50px; height: 50px; border-radius: 50px;"> -->
+                            <div class="col-12 d-flex">
+                                <!-- formulario para comentar -->
                                 <form role="search" class=" p-1" style=" width: 400px;" id="Comentarios">
                                         <div class="mb-3 d-flex align-items-center">
                                             <p class="me-2 mb-0 mt-2 puntuacion_reseñas letraoscura">Puntuación:</p>
@@ -171,7 +140,7 @@
                                     <div style="display: flex; justify-content: end;" class="p-1">
                                      <button class="btn botonoscuro boton_reseñas" type="submit" id="comentar">Comentar</button>
                                      <button class="btn botonoscuro ms-2 boton_reseñas" type="reset" id="cancelar">Cancelar</button>
-                                     <!-- <button class="btn botonoscuro ms-2" id="exportar">Exportar Reseñas</button> -->
+                                     
                                     </div>
                                 </form>
                             </div>

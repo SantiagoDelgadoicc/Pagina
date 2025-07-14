@@ -13,8 +13,8 @@ console.log(usuario);
 const key = "AIzaSyCivpuCvL77GaajRPsC7cjxVHKmedl6EFE"
 window.onload = () =>{
     const imgtitulo = document.getElementById("imagentitulo");
-    const desccomen = document.getElementById("descripcioncomentario");
-    const masinformacion = document.getElementById("masinfo");
+    const descripcioninformacion = document.getElementById("descripcioninformacion");
+    const comentarios = document.getElementById("comentarios");
     const formulario = document.getElementById("Comentarios");
     const star = document.getElementsByClassName("estrella");
     const botonstar = document.getElementsByClassName("star");
@@ -33,10 +33,10 @@ window.onload = () =>{
         let numeropag = data.volumeInfo.pageCount;
         let editorial = data.volumeInfo.publisher;
         let fechapubli = data.volumeInfo.publishedDate;
-        let categoria = data.volumeInfo.categories? data.volumeInfo.categories : "informacion no proporcionada";
-        console.log(categoria);
+        let categoria = data.volumeInfo.categories;
+        // console.log(categoria);
         //separar categorias
-        const separados = []
+        let separados = []
         if(data.volumeInfo.categories){
             for(const categ of categoria){
                 const items = categ.split("/");
@@ -49,27 +49,29 @@ window.onload = () =>{
                 }
             }
         }
-        // console.log(separados);
-
+        if(!categoria){
+            separados = ["sin categorias"]        
+        }
+        
         //creacion de los diferentes contenidos
         //imagen + titulo + subtitulo
-        const contenido = document.createElement('div');
+        const contenidoimagenytitulo = document.createElement('div');
         // tarjeta.className = 'card mx-3 p-0 mt-3 tarjeta';
-        contenido.innerHTML = `<div class="row imagen_reseñas" style="margin-top: 100px;">
-                                    <div class="col-6" style="display: flex; flex-direction: column; justify-content: center; align-items: center; ">
+        contenidoimagenytitulo.innerHTML = `<div class="row imagen_reseñas" style="margin-top: 100px;">
+                                    <div class="col-6 contimagen">
                                         <img src="${imagen}" alt="" width="300" height="400">
                                     </div>
                     
-                                    <div class="col-6" style="display: flex; flex-direction: column; justify-content: end; ">
+                                    <div class="col-6 conttitulo">
                                         <h1 class="letraoscura">${titulo}</h1>
                                         <h3 class="letraoscura">${subtitulo}</h3>
                                     </div>
                                 </div>`
-        imgtitulo.appendChild(contenido);
+        imgtitulo.appendChild(contenidoimagenytitulo);
 
         //descripcion + numero de paginas + editorial + fecha publicacion
-        const contenido2 = document.createElement('div');
-        contenido2.innerHTML = `<div class="row mt-3 contenido2_reseñas">
+        const contenidodescripcioninfo = document.createElement('div');
+        contenidodescripcioninfo.innerHTML = `<div class="row mt-3 contenido2_reseñas">
                                         <div class="col-6" >
                                             <div class="row mt-3 p-2">
                                                 <h5 class="letraoscura">Descripcion</h5>
@@ -94,13 +96,12 @@ window.onload = () =>{
                                             </div>
                                             <div class="row">
                                                 <h5 class="letraoscura">Categorias</h5>
-                                                <p class="letraoscura">${separados || categoria}</p>
+                                                <p class="letraoscura">${separados}</p>
                                             </div>
                                         </div>
                                 </div>`
                                 
-        desccomen.appendChild(contenido2);
-
+        descripcioninformacion.appendChild(contenidodescripcioninfo);
         
     })
      .catch(error => {
@@ -122,21 +123,20 @@ window.onload = () =>{
              const idestrella = star[i].getAttribute("id");
             //  console.log(idestrella);
             //  console.log(typeof(idestrella));
-             let c =Number(idestrella);
-            console.log(c);
+             let nestrella =Number(idestrella);
+            // console.log(c);
             //  console.log(typeof(c));
-            let total = star.length;
-            for(let i = 0; i < c ; i++){
+            // let total = star.length;
+            for(let i = 0; i < nestrella ; i++){
                 star[i].innerHTML = `<path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>`
             }
-            for(let i = c; i < total ; i++){
+            for(let i = nestrella; i < total ; i++){
                 star[i].innerHTML = `<path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.56.56 0 0 0-.163-.505L1.71 6.745l4.052-.576a.53.53 0 0 0 .393-.288L8 2.223l1.847 3.658a.53.53 0 0 0 .393.288l4.052.575-2.906 2.77a.56.56 0 0 0-.163.506l.694 3.957-3.686-1.894a.5.5 0 0 0-.461 0z"/>`
             }
-            contador = c ;
-            
+            contador = nestrella ;
          })
      }
-     console.log(contador);
+    //  console.log(contador);
 
     //obtengo los datos
      let libros= JSON.parse(localStorage.getItem("librosdata"));
@@ -153,18 +153,19 @@ window.onload = () =>{
     const botonmenoscomentario = document.getElementById("cargarmenoscomentarios");
     const mostrarmenoscomentarios = document.getElementById("mostrarmenoscomentarios");
 
+     // indica cuanto tiene que mostrar
      if(libros[id]){
          if(libros[id].comentarios.length <= 5){
              mostrar = libros[id].comentarios.length;
              mostrarmascomentarios.classList.add("d-none");
          }
-         else{
+         else{//para numero de comentarios mayores a 5
              mostrar=5;
              mostrarmascomentarios.classList.remove("d-none");
              mascomentario.classList.add("d-none");
          }
      }
-
+     //funcion que permite mostrar los comentarios
     function Mostrarcomentarios (contenedor,final,inicio){
         contenedor.innerHTML = '';
         for(let i = inicio; i < final; i++){
@@ -192,27 +193,27 @@ window.onload = () =>{
             }
             let botonbasura=``;
             if(nombre != "el rincon" && nombre == usuario){
-                botonbasura += `<div class="col-1" style = "display:flex; justify-content: end ;">
-                <button class = "botonbasura">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-trash3 iconbasura" viewBox="0 0 16 16">
-                <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
-                </svg>
-                </button>
-                </div>`;
+                botonbasura += `<div class="col-1 contbasura">
+                                    <button class = "botonbasura">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-trash3 iconbasura" viewBox="0 0 16 16">
+                                        <path d="M6.5 1h3a.5.5 0 0 1 .5.5v1H6v-1a.5.5 0 0 1 .5-.5M11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3A1.5 1.5 0 0 0 5 1.5v1H1.5a.5.5 0 0 0 0 1h.538l.853 10.66A2 2 0 0 0 4.885 16h6.23a2 2 0 0 0 1.994-1.84l.853-10.66h.538a.5.5 0 0 0 0-1zm1.958 1-.846 10.58a1 1 0 0 1-.997.92h-6.23a1 1 0 0 1-.997-.92L3.042 3.5zm-7.487 1a.5.5 0 0 1 .528.47l.5 8.5a.5.5 0 0 1-.998.06L5 5.03a.5.5 0 0 1 .47-.53Zm5.058 0a.5.5 0 0 1 .47.53l-.5 8.5a.5.5 0 1 1-.998-.06l.5-8.5a.5.5 0 0 1 .528-.47M8 4.5a.5.5 0 0 1 .5.5v8.5a.5.5 0 0 1-1 0V5a.5.5 0 0 1 .5-.5"/>
+                                        </svg>
+                                    </button>
+                                </div>`;
             }
             
-            const contenido3 = document.createElement('div');
-            contenido3.innerHTML = `<div class="row mt-3">
+            const contenidocomentarios = document.createElement('div');
+            contenidocomentarios.innerHTML = `<div class="row mt-3">
                                         <div class="col-11">
-                                            <div style = "display:flex">
-                                            <h6 class="letraoscura" style = "font-size: 18px;">${nombre}</h6>
+                                            <div class="d-flex">
+                                            <h6 class="letraoscura nombreuser">${nombre}</h6>
                                             ${estrellasHTML}
                                             </div>
                                             <p class="letraoscura">${texts}</p>
                                          </div>
                                         ${botonbasura}
                                     </div>`
-            contenedor.appendChild(contenido3);
+            contenedor.appendChild(contenidocomentarios);
             if(nombre != "el rincon" && nombre == usuario){
                 const botoneliminar = contenido3.querySelector(".botonbasura");
                 botoneliminar.addEventListener("click", ()=>{
@@ -225,10 +226,10 @@ window.onload = () =>{
         }
     }
     
-    
+    //eventos para los botones mas y menos comentarios
     botonmascomentario.addEventListener("click",()=>{
         // console.log("click en boton");
-        Mostrarcomentarios (mascomentario,libros[id].comentarios.length, 5);
+        Mostrarcomentarios (mascomentario,libros[id].comentarios.length, 5);//comentarios adicionales si posee mas de 5
         mascomentario.classList.remove("d-none");
         mostrarmascomentarios.classList.add("d-none");
         mostrarmenoscomentarios.classList.remove("d-none");
@@ -239,8 +240,9 @@ window.onload = () =>{
         mostrarmenoscomentarios.classList.add("d-none");
     });
 
-    Mostrarcomentarios (masinformacion,mostrar, 0);
-      
+    Mostrarcomentarios (comentarios,mostrar, 0);//comentarios iniciales
+    
+    //permite deshabilitar comentarios si no hay una cuenta activa
     let textarea = document.getElementById("coment");
     let botoncomentar = document.getElementById("comentar");
     let botoncancelar = document.getElementById("cancelar");

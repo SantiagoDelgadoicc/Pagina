@@ -25,7 +25,7 @@ nav{
 }
 .filtro{
     background-color: #af9d7c; 
-    height: 445px; 
+    height: 625px; 
     border-radius: 5px;
 }
 
@@ -152,7 +152,10 @@ div .tarjetacuerpo{
     font-size: 19px;
     font-family: serif;
 }
-
+.contenedorlogo{
+    justify-content: center; 
+    align-items: center;
+}
 .titulo_logo{
     margin-left: 15px; 
     font-family: serif;
@@ -187,4 +190,12 @@ div .tarjetacuerpo{
 
 div .texto_{
     text-align: center;
+}
+#masresultados{
+    display: flex; 
+    justify-content: end;
+}
+
+#mostrarmasresultados{
+    justify-self: start;
 }

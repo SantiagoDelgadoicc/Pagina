@@ -4,8 +4,8 @@ window.onload = () =>{
 const categoriasgenero = ["horror", "science fiction","fantasy","romance",
     "thrillers","adventure","drama","humor","computers","history"];
 let ids = [];
-let diccionario={};
-let diccionario2={};
+let diccionariobuscados={};
+let diccionarioinicial={};
 let keys = [];
 let librosbuscados=[];
 let librosiniciales=[];
@@ -14,12 +14,11 @@ const seccionbusqueda = document.getElementById("tarjetasbusqueda");
 const masresultados = document.getElementById("masresultados");
 const btnmasresultados = document.getElementById("mostrarmasresultados");
 const regresar = document.getElementById("regresar");
-
+//realiza las 9 tarjetas iniciales
 for(let i = 0; i < 9; i++){
     let aleatorio = Math.random() * 10;
     aleatorio = Math.trunc(aleatorio);
     let eleccion = categoriasgenero[aleatorio];
-    // console.log(eleccion);
     añadirtarjeta(eleccion);
 }
 
@@ -36,12 +35,13 @@ function añadirtarjeta(eleccion){
         let intentos = 0;
         //si el libro no tiene ni imagen o desc que busque otro
         while (!encontrado && intentos < 100) {
-                let n = Math.random() * data.items.length;
-                n = Math.trunc(n);
-                libro = data.items[n];
+                let numero = Math.random() * data.items.length;
+                numero = Math.trunc(numero);
+                libro = data.items[numero];
                 if (!ids.includes(libro.id)) {
                     let existeimg=libro.volumeInfo.imageLinks? libro.volumeInfo.imageLinks.thumbnail : false;
-                    if (existeimg && libro.volumeInfo.description) {
+                    let existedescripcion=libro.volumeInfo.description? libro.volumeInfo.description : false;
+                    if (existeimg && existedescripcion) {
                         encontrado = true;
                         ids.push(libro.id);
                     }
@@ -49,59 +49,30 @@ function añadirtarjeta(eleccion){
                 intentos++;
         }
         //se agrega al diccionario2
+        let descripcion = libro.volumeInfo.description;
+        let imagen = libro.volumeInfo.imageLinks.thumbnail;
+        let titulo = libro.volumeInfo.title? libro.volumeInfo.title : "sin titulo" ;
 
-        if(libro.volumeInfo.title && libro.selfLink){
-                    let clave = libro.selfLink;
-                    diccionario2[clave]=libro.volumeInfo.title.toLowerCase();
-                }
+        if(titulo && libro.selfLink){
+            let clave = libro.selfLink;
+            diccionarioinicial[clave]=titulo.toLowerCase();
+        }
         
         //por si no encuentra libro despues de 100 intentos
         if (!encontrado) {
             console.log("no se encontro libro");
         }
-        //si la descripcion es muy larga rellena al conal con puntos
-        let descripcion = libro.volumeInfo.description;
-        if (descripcion.length > 100) {
-            descripcion = descripcion.substring(0, 100) + '...';
-        }
-        //creacion de la tarjeta
-        // console.log(libro.volumeInfo.categories);
-        const tarjeta = document.createElement('div');
-        tarjeta.className = 'card mx-3 p-0 mt-3 tarjeta';
-        tarjeta.innerHTML = `<div class="posicioncirculo">
-                                <button class="circulo">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-heart-fill corazon" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-                                    </svg>
-                                </button>
-                            </div>
 
-                            <img src=${libro.volumeInfo.imageLinks.thumbnail} class="card-img-top" height="280px" width="100%" alt="libro">
-                            <div class="card-body tarjetacuerpo">
-                                <h5>${libro.volumeInfo.title}</h5>
-                                <p class="card-text mt-2 letraoscura">${descripcion}</p>
-                                <a href="/Pagina/Paginareseñas/reseñas.html" class="btn mt-2 botonoscuro botontarjeta">ver reseñas</a>
-                            </div>`
-        secciontarjetas.appendChild(tarjeta);
+        estructuratarjeta(libro , secciontarjetas, descripcion,imagen,titulo);
 
-        const boton = tarjeta.querySelector(".circulo");
-        const corazon = tarjeta.querySelector(".corazon");
-        // se le agrega evento al boton donde esta el corazon
-        agregarfavorito(boton, corazon, libro);
-        // evento para guardar en localstorage informacion del libro
-        const botontarjeta = tarjeta.querySelector(".botontarjeta");
-        botontarjeta.addEventListener("click",()=>{
-            localStorage.setItem("libro", libro.selfLink);
-            localStorage.setItem("ids", libro.id);
-        });
         // se agrega a la lista de libros iniciales
          librosiniciales.push({
                  link: libro.selfLink,
                  idioma: libro.volumeInfo.language,
                  categorias: libro.volumeInfo.categories || [],
-                 titulo: libro.volumeInfo.title,
+                 titulo: titulo,
                  descripcion: descripcion,
-                 imagen: libro.volumeInfo.imageLinks.thumbnail
+                 imagen: imagen
              });
         
     })
@@ -109,15 +80,16 @@ function añadirtarjeta(eleccion){
         console.error('Ocurrió un error:', error.message);
     });
     };
-    
-    let startIndex = 0;
-    let ultimaConsulta = "";
+    //indice por donde quiero que la api empiece
+    let startindex = 0;
+    //ultima consulta realizada por busqueda
+    let ultimaconsulta = "";
     btnmasresultados.addEventListener("click", ()=>{
         librosbuscados.length = 0;
-        diccionario = {};
-        startIndex += 40;
+        diccionariobuscados = {};
+        startindex += 40;
         seccionbusqueda.innerHTML="";
-        const consulta = `${ultimaConsulta}${startIndex}&maxResults=40&key=${key}`;
+        const consulta = `${ultimaconsulta}${startindex}&maxResults=40&key=${key}`;
         añadirtarjetabusqueda(consulta);
     })
     const busqueda = document.getElementById("busqueda");
@@ -125,28 +97,26 @@ function añadirtarjeta(eleccion){
         event.preventDefault();
         // limpio libros buscados
         librosbuscados.length = 0;
-        diccionario = {};
+        diccionariobuscados = {};
         
         //limpio lo de la consulta anterior
         seccionbusqueda.innerHTML="";
         masresultados.classList.remove("d-none");
 
-        let startIndex = 0;
-
+        startindex = 0;
+        //trim me quita los espacios iniciales y finales
         const elemento=event.target.elementobusqueda.value.trim();
-        const filtro = event.target.selectorbusqueda.value;
-        console.log(filtro);
-        console.log(elemento);
+        const seleccion = event.target.selectorbusqueda.value;
         
-        if(filtro == "general"){
-            ultimaConsulta = `https://www.googleapis.com/books/v1/volumes?q=${elemento}&startIndex=`;
+        if(seleccion == "general"){
+            ultimaconsulta = `https://www.googleapis.com/books/v1/volumes?q=${elemento}&startIndex=`;
         }
         else{
-            ultimaConsulta = `https://www.googleapis.com/books/v1/volumes?q=${filtro}:${elemento}&startIndex=`;
+            ultimaconsulta = `https://www.googleapis.com/books/v1/volumes?q=${seleccion}:${elemento}&startIndex=`;
         }
-        let consulta = `${ultimaConsulta}${startIndex}&maxResults=40&key=${key}`;
+        let consulta = `${ultimaconsulta}${startindex}&maxResults=40&key=${key}`;
              
-        console.log(consulta);
+        // console.log(consulta);
         añadirtarjetabusqueda(consulta);
     
 })
@@ -158,13 +128,12 @@ function añadirtarjetabusqueda(consulta){
       return response.json();
     })
      .then(data => {
-        // console.log(data.items.length);
 
         //oculto las tarjetas iniciales
         if(!secciontarjetas.classList.contains("d-none")){
             secciontarjetas.classList.add("d-none");
         }
-        // let libro = data.items[n];
+    
         //si el total de item es cero no hay coincidencias
         if (data.totalItems == 0){
             console.log("no hay datos");
@@ -175,63 +144,23 @@ function añadirtarjetabusqueda(consulta){
             //recorro items mostrando cada libro
             for(let i = 0; i < data.items.length; i++){
                 let libro=data.items[i];
-                let descripcion = libro.volumeInfo.description;
-                let imagen = libro.volumeInfo.imageLinks? libro.volumeInfo.imageLinks.thumbnail : "img/libro no encontrado.png";
-                let titulo = libro.volumeInfo.title;
-                // console.log(titulo);
+                 let descripcion = libro.volumeInfo.description;
+                 let imagen = libro.volumeInfo.imageLinks? libro.volumeInfo.imageLinks.thumbnail : "img/libro no encontrado.png";
+                 let titulo = libro.volumeInfo.title? libro.volumeInfo.title : "sin titulo";
+                
                 //se añade a diccionario
                 if(titulo && libro.selfLink){
                     let clave = libro.selfLink;
-                    diccionario[clave]=titulo.toLowerCase();
+                    diccionariobuscados[clave]=titulo.toLowerCase();
                 }
-                //console.log(libro.volumeInfo.categories);
 
                 const text = document.getElementById("texto");
                 //si existe el texto lo elimino
                 if(text){
                     text.remove();
                 }
-    
-                if(descripcion){
-                            //si tiene descripcion...
-                    if (descripcion.length > 100) {
-                        descripcion = descripcion.substring(0, 100) + '...';
-                    }
-    
-                }else{
-                            //en caso contrario
-                            descripcion="N/A";
-                }
-                const tarjeta = document.createElement('div');
-                tarjeta.className = 'card mx-3 p-0 mt-3 tarjeta';
-                tarjeta.innerHTML = `<div class="posicioncirculo">
-                                                <button class="circulo">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-heart-fill corazon" viewBox="0 0 16 16">
-                                                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-                                                    </svg>
-                                                </button>
-                                            </div>
-    
-                                            <img src="${imagen}" class="card-img-top" height="280px" width="100%" alt="libro">
-                                            <div class="card-body tarjetacuerpo">
-                                                <h5>${titulo}</h5>
-                                                <p class="card-text mt-2 letraoscura">${descripcion}</p>
-                                                <a href="/Pagina/Paginareseñas/reseñas.html" class="btn mt-2 botonoscuro botontarjeta">ver reseñas</a>
-                                            </div>`;
+                estructuratarjeta(libro , seccionbusqueda, descripcion,imagen,titulo);
                 
-                seccionbusqueda.appendChild(tarjeta);
-                
-                const boton = tarjeta.querySelector(".circulo");
-                const corazon = tarjeta.querySelector(".corazon");
-                // se le agrega evento al boton donde esta el corazon
-                agregarfavorito(boton, corazon, libro);
-                // evento para guardar en localstorage informacion del libro
-                const botontarjeta = tarjeta.querySelector(".botontarjeta");
-                botontarjeta.addEventListener("click",()=>{
-                    localStorage.setItem("libro", libro.selfLink);
-                    localStorage.setItem("ids", libro.id);
-
-                });
                 // se agrega a la lista de libros buscados
                 librosbuscados.push({
                     link: libro.selfLink,
@@ -271,44 +200,8 @@ function añadirtarjetabusqueda(consulta){
                 }
                 let descripcion = data.volumeInfo.description;
                 let imagen = data.volumeInfo.imageLinks? data.volumeInfo.imageLinks.thumbnail : "img/libro no encontrado.png";
-                let titulo = data.volumeInfo.title;
-                if(descripcion){
-                         //si tiene descripcion...
-                        if (descripcion.length > 100) {
-                        descripcion = descripcion.substring(0, 100) + '...';
-                        }
-        
-                }else{
-                    //en caso contrario
-                    descripcion="N/A";
-                }
-                const tarjeta = document.createElement('div');
-                tarjeta.className = 'card mx-3 p-0 mt-3 tarjeta';
-                tarjeta.innerHTML = `<div class="posicioncirculo">
-                                    <button class="circulo">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-heart-fill corazon" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-                                        </svg>
-                                    </button>
-                                    </div>
-                                        <img src="${imagen}" class="card-img-top" height="280px" width="100%" alt="libro">
-                                        <div class="card-body tarjetacuerpo">
-                                            <h5>${titulo}</h5>
-                                            <p class="card-text mt-2 letraoscura">${descripcion}</p>
-                                            <a href="/Pagina/Paginareseñas/reseñas.html" class="btn mt-2 botonoscuro botontarjeta"">ver reseñas</a>
-                                        </div>`;
-                seccionbusqueda.appendChild(tarjeta);
-                const boton = tarjeta.querySelector(".circulo");
-                const corazon = tarjeta.querySelector(".corazon");
-                // se le agrega evento al boton donde esta el corazon
-                console.log(data);
-                agregarfavorito(boton, corazon, data);
-                // evento para guardar en localstorage informacion del libro
-                const botontarjeta = tarjeta.querySelector(".botontarjeta");
-                botontarjeta.addEventListener("click",()=>{
-                    localStorage.setItem("libro", data.selfLink);
-                    localStorage.setItem("ids", data.id);
-                });
+                let titulo = data.volumeInfo.title? data.volumeInfo.title : "sin titulo";
+                estructuratarjeta(data , seccionbusqueda, descripcion,imagen,titulo);
 
                 })
             .catch(error => {
@@ -327,6 +220,50 @@ async function mostrarTarjetasOrdenadas(keys) {
     }
 }
 
+function estructuratarjeta(libro,contenedor,descripcion,imagen,titulo){
+    
+    if(descripcion){
+                            //si tiene descripcion...
+                    if (descripcion.length > 100) {
+                        descripcion = descripcion.substring(0, 100) + '...';
+                    }
+    
+                }else{
+                            //en caso contrario
+                            descripcion="N/A";
+                }
+                const tarjeta = document.createElement('div');
+                tarjeta.className = 'card mx-3 p-0 mt-3 tarjeta';
+                tarjeta.innerHTML = `<div class="posicioncirculo">
+                                                <button class="circulo">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-heart-fill corazon" viewBox="0 0 16 16">
+                                                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                                                    </svg>
+                                                </button>
+                                            </div>
+    
+                                            <img src="${imagen}" class="card-img-top" height="280px" width="100%" alt="libro">
+                                            <div class="card-body tarjetacuerpo">
+                                                <h5>${titulo}</h5>
+                                                <p class="card-text mt-2 letraoscura">${descripcion}</p>
+                                                <a href="/Pagina/Paginareseñas/reseñas.html" class="btn mt-2 botonoscuro botontarjeta">ver reseñas</a>
+                                            </div>`;
+                
+                contenedor.appendChild(tarjeta);
+                
+                const boton = tarjeta.querySelector(".circulo");
+                const corazon = tarjeta.querySelector(".corazon");
+                // se le agrega evento al boton donde esta el corazon
+                agregarfavorito(boton, corazon, libro);
+                // evento para guardar en localstorage informacion del libro
+                const botontarjeta = tarjeta.querySelector(".botontarjeta");
+                botontarjeta.addEventListener("click",()=>{
+                    localStorage.setItem("libro", libro.selfLink);
+                    localStorage.setItem("ids", libro.id);
+
+                });
+}
+
     const formulariofiltro = document.getElementById("filtros");
         formulariofiltro.addEventListener("submit",(event) => {
                  event.preventDefault();
@@ -337,11 +274,11 @@ async function mostrarTarjetasOrdenadas(keys) {
                 //si el tamaño de libros buscados es 0 significa que estoy en libros iniciales
                 if(librosbuscados.length ==0){
                     librosactuales=librosiniciales;
-                    diccionarioactual=diccionario2;
+                    diccionarioactual=diccionarioinicial;
                 }
                 else{
                     librosactuales=librosbuscados;
-                    diccionarioactual=diccionario;
+                    diccionarioactual=diccionariobuscados;
                 }
                 
                 seccionbusqueda.innerHTML="";
@@ -349,35 +286,36 @@ async function mostrarTarjetasOrdenadas(keys) {
                 let idioma = event.target.idioma.value;
                 let genero = event.target.genero.value;
                 let ordenar = event.target.orden.value;
-            
-                if (ordenar !== "ordenar por" && !idioma && genero === "seleccion") {
+                //si el usuario decide solo ordenar
+                if (ordenar != "ordenar por" && idioma == "" && genero == "seleccion") {
                     ORDENAR(diccionarioactual, ordenar);
                     return; 
                 }
 
                 const librosfiltrados = {};
                 for (const libro of librosactuales) {
-                    const cumpleIdioma = !idioma || libro.idioma === idioma;
-                    const cumpleGenero = genero === "seleccion" || libro.categorias.includes(genero);
-                    if (cumpleIdioma && cumpleGenero){
+                    const IDIOMA = idioma == "" || libro.idioma === idioma;//true si idioma es vacio o idioma es igual a idioma del libro
+                    const GENERO = genero == "seleccion" || libro.categorias.includes(genero);//true si no se selecciono genero y true si coincide genero
+                    if (IDIOMA && GENERO){
                         librosfiltrados[libro.link] = libro.titulo;
                     }
                 }
 
-                if (Object.keys(librosfiltrados).length === 0) {
+                // console.log("libros filtrados",librosfiltrados);
+
+                if (Object.keys(librosfiltrados).length == 0) {
                     agregartexto(); 
                 } 
-                else if (ordenar !== "ordenar por") {
+                else if (ordenar != "ordenar por") {
                     ORDENAR(librosfiltrados, ordenar);
                 } 
                 else {
-                    // Mostrar sin ordenar (solo filtros)
+                    
                     for (const clave in librosfiltrados){
                         tarjetas(clave);
                     }
                 }
-                
-                
+                  
              })
 function ORDENAR(diccionario,ORDEN){
         //me entrega una lista con las claves del diccionario
@@ -398,7 +336,6 @@ function ORDENAR(diccionario,ORDEN){
         keys = items.map(
         (e) => { return e[0] });
 
-        // console.log(keys)
         mostrarTarjetasOrdenadas(keys);
 
 }
@@ -406,7 +343,7 @@ function ORDENAR(diccionario,ORDEN){
 regresar.addEventListener("click",()=>{
     seccionbusqueda.innerHTML="";
     librosbuscados.length = 0;
-    diccionario = {};
+    diccionariobuscados = {};
     secciontarjetas.classList.remove("d-none");
     masresultados.classList.add("d-none");
 })

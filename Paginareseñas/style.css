@@ -117,6 +117,10 @@ div .star{
 #regresarcatalogo{
     height: 45px;
 }
+.contenedorlogo{
+    justify-content: center; 
+    align-items: center;
+}
 /* Estilos nuevos - bastian*/
 
 .barra_navegacion {
@@ -135,10 +139,27 @@ div .star{
 }
 
 .descripcion_comentario {
-    max-height: 200px; 
+    max-height: 250px; 
     background-color:#a18e6c
 }
-
+.contimagen{
+    display: flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+}
+.contbasura{
+    display:flex; 
+    justify-content: end ;
+}
+.nombreuser{
+    font-size: 18px;
+}
+.conttitulo{
+    display: flex; 
+    flex-direction: column; 
+    justify-content: end;
+}
 .puntuacion_reseñas {
     font-size: 18px;
 }
