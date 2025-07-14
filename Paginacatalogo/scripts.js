@@ -1,24 +1,22 @@
-// const key = "AIzaSyDhckEbK6NojqgGq6i4FKJUQ53DDI9zuZI";
-const key = "AIzaSyCivpuCvL77GaajRPsC7cjxVHKmedl6EFE"
+const key = "AIzaSyDhckEbK6NojqgGq6i4FKJUQ53DDI9zuZI";
+// const key = "AIzaSyCivpuCvL77GaajRPsC7cjxVHKmedl6EFE"
 window.onload = () =>{
 const categoriasgenero = ["horror", "science fiction","fantasy","romance",
     "thrillers","adventure","drama","humor","computers","history"];
 let ids = [];
-let titulos=[];
-let diccionario={};
-let diccionario2={};
-let keys;
+let keys = [];
 let librosbuscados=[];
 let librosiniciales=[];
 const secciontarjetas = document.getElementById("secciontarjetas");
 const seccionbusqueda = document.getElementById("tarjetasbusqueda");
+const masresultados = document.getElementById("masresultados");
+const btnmasresultados = document.getElementById("mostrarmasresultados");
 const regresar = document.getElementById("regresar");
-
+//realiza las 9 tarjetas iniciales
 for(let i = 0; i < 9; i++){
     let aleatorio = Math.random() * 10;
     aleatorio = Math.trunc(aleatorio);
     let eleccion = categoriasgenero[aleatorio];
-    // console.log(eleccion);
     añadirtarjeta(eleccion);
 }
 
@@ -35,12 +33,13 @@ function añadirtarjeta(eleccion){
         let intentos = 0;
         //si el libro no tiene ni imagen o desc que busque otro
         while (!encontrado && intentos < 100) {
-                let n = Math.random() * data.items.length;
-                n = Math.trunc(n);
-                libro = data.items[n];
+                let numero = Math.random() * data.items.length;
+                numero = Math.trunc(numero);
+                libro = data.items[numero];
                 if (!ids.includes(libro.id)) {
                     let existeimg=libro.volumeInfo.imageLinks? libro.volumeInfo.imageLinks.thumbnail : false;
-                    if (existeimg && libro.volumeInfo.description) {
+                    let existedescripcion=libro.volumeInfo.description? libro.volumeInfo.description : false;
+                    if (existeimg && existedescripcion) {
                         encontrado = true;
                         ids.push(libro.id);
                     }
@@ -48,59 +47,25 @@ function añadirtarjeta(eleccion){
                 intentos++;
         }
         //se agrega al diccionario2
-        let clave = libro.selfLink;
-        diccionario2[clave]=libro.volumeInfo.title.toLowerCase();
+        let descripcion = libro.volumeInfo.description;
+        let imagen = libro.volumeInfo.imageLinks.thumbnail;
+        let titulo = libro.volumeInfo.title? libro.volumeInfo.title : "sin titulo" ;
+
         //por si no encuentra libro despues de 100 intentos
         if (!encontrado) {
             console.log("no se encontro libro");
         }
-        //si la descripcion es muy larga rellena al conal con puntos
-        let descripcion = libro.volumeInfo.description;
-        if (descripcion.length > 100) {
-            descripcion = descripcion.substring(0, 100) + '...';
-        }
-        //creacion de la tarjeta
-        // console.log(libro.id,libro.volumeInfo.imageLinks.thumbnail);
-        console.log(libro.volumeInfo.categories);
-        const tarjeta = document.createElement('div');
-        tarjeta.className = 'card mx-3 p-0 mt-3 tarjeta';
-        tarjeta.innerHTML = `<div class="posicioncirculo">
-                                <button class="circulo">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-heart-fill corazon" viewBox="0 0 16 16">
-                                        <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-                                    </svg>
-                                </button>
-                            </div>
 
-                            <img src=${libro.volumeInfo.imageLinks.thumbnail} class="card-img-top" height="280px" width="100%" alt="libro">
-                            <div class="card-body tarjetacuerpo">
-                                <h5>${libro.volumeInfo.title}</h5>
-                                <p class="card-text mt-2 letraoscura">${descripcion}</p>
-                                <a href="/Pagina/Paginareseñas/reseñas.html" target="_blank" class="btn mt-2 botonoscuro botontarjeta">ver reseñas</a>
-                            </div>`
-        secciontarjetas.appendChild(tarjeta);
+        estructuratarjeta(libro , secciontarjetas, descripcion,imagen,titulo);
 
-        const boton = tarjeta.querySelector(".circulo");
-        const corazon = tarjeta.querySelector(".corazon");
-        // se le agrega evento al boton donde esta el corazon
-        agregarfavorito(boton, corazon, libro);
-        // evento para guardar en localstorage informacion del libro
-        const botontarjeta = tarjeta.querySelector(".botontarjeta");
-        botontarjeta.addEventListener("click",()=>{
-            localStorage.setItem("libro", libro.selfLink);
-            localStorage.setItem("ids", libro.id);
-            // console.log("Guardado en localStorage:", libro.selfLink);
-            // let selflink=localStorage.getItem("libro");
-            // console.log(selflink);
-        });
         // se agrega a la lista de libros iniciales
          librosiniciales.push({
                  link: libro.selfLink,
                  idioma: libro.volumeInfo.language,
                  categorias: libro.volumeInfo.categories || [],
-                 titulo: libro.volumeInfo.title,
+                 titulo: titulo,
                  descripcion: descripcion,
-                 imagen: libro.volumeInfo.imageLinks.thumbnail
+                 imagen: imagen
              });
         
     })
@@ -108,26 +73,42 @@ function añadirtarjeta(eleccion){
         console.error('Ocurrió un error:', error.message);
     });
     };
+    //indice por donde quiero que la api empiece
+    let startindex = 0;
+    //ultima consulta realizada por busqueda
+    let ultimaconsulta = "";
+    btnmasresultados.addEventListener("click", ()=>{
+        librosbuscados.length = 0;
+        startindex += 40;
+        seccionbusqueda.innerHTML="";
+        const consulta = `${ultimaconsulta}${startindex}&maxResults=40&key=${key}`;
+        añadirtarjetabusqueda(consulta);
+    })
+    const busqueda = document.getElementById("busqueda");
+    busqueda.addEventListener("submit",(event) => {
+        event.preventDefault();
+        // limpio libros buscados
+        librosbuscados.length = 0;
+        
+        //limpio lo de la consulta anterior
+        seccionbusqueda.innerHTML="";
+        masresultados.classList.remove("d-none");
 
-const busqueda = document.getElementById("busqueda");
-busqueda.addEventListener("submit",(event) => {
-    event.preventDefault();
-    // limpio libros buscados
-    librosbuscados.length = 0;
-
-    //limpio lo de la consulta anterior
-    seccionbusqueda.innerHTML="";
-
-    // console.log(event.target.elementobusqueda.value);
-    // console.log(event.target.buscarpor.value);
-
-    //obtengo lo que se quiere buscar
-    const elemento=event.target.elementobusqueda.value;
-    console.log(elemento);
-    
-    let consulta_ = `https://www.googleapis.com/books/v1/volumes?q=${elemento}&maxResults=40&key=${key}`
-    console.log(consulta_);
-    añadirtarjetabusqueda(consulta_);
+        startindex = 0;
+        //trim me quita los espacios iniciales y finales
+        const elemento=event.target.elementobusqueda.value.trim();
+        const seleccion = event.target.selectorbusqueda.value;
+        
+        if(seleccion == "general"){
+            ultimaconsulta = `https://www.googleapis.com/books/v1/volumes?q=${elemento}&startIndex=`;
+        }
+        else{
+            ultimaconsulta = `https://www.googleapis.com/books/v1/volumes?q=${seleccion}:${elemento}&startIndex=`;
+        }
+        let consulta = `${ultimaconsulta}${startindex}&maxResults=40&key=${key}`;
+             
+        // console.log(consulta);
+        añadirtarjetabusqueda(consulta);
     
 })
 
@@ -138,13 +119,12 @@ function añadirtarjetabusqueda(consulta){
       return response.json();
     })
      .then(data => {
-        // console.log(data.items.length);
 
         //oculto las tarjetas iniciales
         if(!secciontarjetas.classList.contains("d-none")){
             secciontarjetas.classList.add("d-none");
         }
-        // let libro = data.items[n];
+    
         //si el total de item es cero no hay coincidencias
         if (data.totalItems == 0){
             console.log("no hay datos");
@@ -155,22 +135,79 @@ function añadirtarjetabusqueda(consulta){
             //recorro items mostrando cada libro
             for(let i = 0; i < data.items.length; i++){
                 let libro=data.items[i];
-                let descripcion = libro.volumeInfo.description;
-                let imagen = libro.volumeInfo.imageLinks? libro.volumeInfo.imageLinks.thumbnail : "img/libro no encontrado.png";
-                let titulo = libro.volumeInfo.title;
-                titulos.push(titulo.toLowerCase());
-                //se añade a diccionario
-                let clave = libro.selfLink;
-                diccionario[clave]=titulo.toLowerCase();
-                //console.log(libro.volumeInfo.categories);
+                 let descripcion = libro.volumeInfo.description;
+                 let imagen = libro.volumeInfo.imageLinks? libro.volumeInfo.imageLinks.thumbnail : "img/libro no encontrado.png";
+                 let titulo = libro.volumeInfo.title? libro.volumeInfo.title : "sin titulo";
 
                 const text = document.getElementById("texto");
                 //si existe el texto lo elimino
                 if(text){
                     text.remove();
                 }
+                estructuratarjeta(libro , seccionbusqueda, descripcion,imagen,titulo);
+                
+                // se agrega a la lista de libros buscados
+                librosbuscados.push({
+                    link: libro.selfLink,
+                    idioma: libro.volumeInfo.language,
+                    categorias: libro.volumeInfo.categories || [],
+                    titulo: titulo,
+                    descripcion: descripcion,
+                    imagen: imagen
+                });
+               
+                }
+  
+            }
+        }
     
-                if(descripcion){
+    )
+     .catch(error => {
+        console.error('Ocurrió un error:', error.message);
+    });
+}
+
+    function tarjetas(link){
+        return fetch(link)
+            .then(response => {
+            if (!response.ok) throw new Error('No se pudieron obtener los datos');
+            return response.json();
+            })
+            .then(data => {
+                //si las tarjetas iniciales no estan ocultas las oculto
+                if(!secciontarjetas.classList.contains("d-none")){
+                    secciontarjetas.classList.add("d-none");
+                }
+                const text = document.getElementById("texto_filtro");
+                //si existe el texto lo elimino
+                if(text){
+                    text.remove();
+                }
+                let descripcion = data.volumeInfo.description;
+                let imagen = data.volumeInfo.imageLinks? data.volumeInfo.imageLinks.thumbnail : "img/libro no encontrado.png";
+                let titulo = data.volumeInfo.title? data.volumeInfo.title : "sin titulo";
+                estructuratarjeta(data , seccionbusqueda, descripcion,imagen,titulo);
+
+                })
+            .catch(error => {
+                console.error('Ocurrió un error:', error.message);
+            });
+    }
+
+//necesito esperar la respuesta antes de colocar la tarjeta al momento de ordenarlas
+async function mostrarTarjetasordenadas(keys) {
+    for (let link of keys) {
+        try {
+            await tarjetas(link);
+        } catch (error) {
+            console.error("Error", error.message);
+        }
+    }
+}
+
+function estructuratarjeta(libro,contenedor,descripcion,imagen,titulo){
+    
+    if(descripcion){
                             //si tiene descripcion...
                     if (descripcion.length > 100) {
                         descripcion = descripcion.substring(0, 100) + '...';
@@ -194,10 +231,10 @@ function añadirtarjetabusqueda(consulta){
                                             <div class="card-body tarjetacuerpo">
                                                 <h5>${titulo}</h5>
                                                 <p class="card-text mt-2 letraoscura">${descripcion}</p>
-                                                <a href="/Paginareseñas/reseñas.html" target="_blank" class="btn mt-2 botonoscuro botontarjeta">ver reseñas</a>
+                                                <a href="/Pagina/Paginareseñas/reseñas.html" class="btn mt-2 botonoscuro botontarjeta">ver reseñas</a>
                                             </div>`;
                 
-                seccionbusqueda.appendChild(tarjeta);
+                contenedor.appendChild(tarjeta);
                 
                 const boton = tarjeta.querySelector(".circulo");
                 const corazon = tarjeta.querySelector(".corazon");
@@ -208,299 +245,61 @@ function añadirtarjetabusqueda(consulta){
                 botontarjeta.addEventListener("click",()=>{
                     localStorage.setItem("libro", libro.selfLink);
                     localStorage.setItem("ids", libro.id);
-                    // console.log("Guardado en localStorage:", libro.selfLink);
-                    // let selflink=localStorage.getItem("libro");
-                    // console.log(selflink);
+
                 });
-                // se agrega a la lista de libros buscados
-                librosbuscados.push({
-                    link: libro.selfLink,
-                    idioma: libro.volumeInfo.language,
-                    categorias: libro.volumeInfo.categories || [],
-                    titulo: titulo,
-                    descripcion: descripcion,
-                    imagen: imagen
-                });
-               
-                }
-                
-                // console.log(titulos);
-                // console.log(diccionario);
-    
-                
-            }
-        }
-    
-    )
-     .catch(error => {
-        console.error('Ocurrió un error:', error.message);
-    });
 }
 
-    function tarjetas(link){
-        return fetch(link)
-            .then(response => {
-            if (!response.ok) throw new Error('No se pudieron obtener los datos');
-            return response.json();
-            })
-            .then(data => {
-                // console.log("llego a tarjetas");
-                //si las tarjetas iniciales no estan ocultas las oculto
-                if(!secciontarjetas.classList.contains("d-none")){
-                    secciontarjetas.classList.add("d-none");
-                }
-                const text = document.getElementById("texto_filtro");
-                //si existe el texto lo elimino
-                if(text){
-                    text.remove();
-                }
-                let descripcion = data.volumeInfo.description;
-                let imagen = data.volumeInfo.imageLinks? data.volumeInfo.imageLinks.thumbnail : "img/libro no encontrado.png";
-                let titulo = data.volumeInfo.title;
-                if(descripcion){
-                         //si tiene descripcion...
-                        if (descripcion.length > 100) {
-                        descripcion = descripcion.substring(0, 100) + '...';
-                        }
-        
-                }else{
-                    //en caso contrario
-                    descripcion="N/A";
-                }
-                const tarjeta = document.createElement('div');
-                tarjeta.className = 'card mx-3 p-0 mt-3 tarjeta';
-                tarjeta.innerHTML = `<div class="posicioncirculo">
-                                    <button class="circulo">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-heart-fill corazon" viewBox="0 0 16 16">
-                                            <path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
-                                        </svg>
-                                    </button>
-                                    </div>
-                                        <img src="${imagen}" class="card-img-top" height="280px" width="100%" alt="libro">
-                                        <div class="card-body tarjetacuerpo">
-                                            <h5>${titulo}</h5>
-                                            <p class="card-text mt-2 letraoscura">${descripcion}</p>
-                                            <a href="/Paginareseñas/reseñas.html" target="_blank" class="btn mt-2 botonoscuro botontarjeta"">ver reseñas</a>
-                                        </div>`;
-                seccionbusqueda.appendChild(tarjeta);
-                const boton = tarjeta.querySelector(".circulo");
-                const corazon = tarjeta.querySelector(".corazon");
-                // se le agrega evento al boton donde esta el corazon
-                agregarfavorito(boton, corazon, libro);
-                // evento para guardar en localstorage informacion del libro
-                const botontarjeta = tarjeta.querySelector(".botontarjeta");
-                botontarjeta.addEventListener("click",()=>{
-                    localStorage.setItem("libro", data.selfLink);
-                    localStorage.setItem("ids", libro.id);
-                    // console.log("Guardado en localStorage:", libro.selfLink);
-                    // let selflink=localStorage.getItem("libro");
-                    // console.log(selflink);
-                });
-
-                })
-            .catch(error => {
-                console.error('Ocurrió un error:', error.message);
-            });
-    }
-
-//necesito esperar la respuesta antes de colocar la tarjeta al momento de ordenarlas
-async function mostrarTarjetasOrdenadas(keys) {
-    for (let link of keys) {
-        try {
-            await tarjetas(link);
-        } catch (error) {
-            console.error("Error", error.message);
-        }
-    }
-}
     const formulariofiltro = document.getElementById("filtros");
         formulariofiltro.addEventListener("submit",(event) => {
                  event.preventDefault();
-                //   console.log(event.target.idioma.value);
-                //   console.log(event.target.genero.value);
-                //   console.log(event.target.orden.value); 
                 let librosactuales;
-                let diccionarioactual;
                 console.log("libros de busqueda:",librosbuscados);
                 console.log("libros iniciales:",librosiniciales);
                 //si el tamaño de libros buscados es 0 significa que estoy en libros iniciales
                 if(librosbuscados.length ==0){
                     librosactuales=librosiniciales;
-                    diccionarioactual=diccionario2;
                 }
                 else{
                     librosactuales=librosbuscados;
-                    diccionarioactual=diccionario;
                 }
-                // console.log("librosactuales:",librosactuales);
+                
                 seccionbusqueda.innerHTML="";
-                //   console.log(link);
+                
                 let idioma = event.target.idioma.value;
                 let genero = event.target.genero.value;
                 let ordenar = event.target.orden.value;
-                //  console.log(elemento);
-                //  console.log(genero);
-                // console.log(ordenar);
 
-                //el usuario selecciono idioma/genero/orden combinados
-                if(idioma!="" && genero != "seleccion" || idioma!="" && genero != "seleccion" && ordenar != "ordenar por" || genero != "seleccion" && ordenar != "ordenar por" || idioma!="" && ordenar != "ordenar por"){
-                    //genero + orden + idioma
-                    if(idioma!="" && genero != "seleccion" && ordenar != "ordenar por"){
-                        console.log("idioma, seleccion y orden es dintinto de vacio");
-                        let libroscoincidentes = {};
-                        // keys.length = 0;
-                        for(let libro of librosactuales){
-                            if(idioma == libro.idioma && libro.categorias.includes(genero)){
-                                let llave = libro.link;
-                                libroscoincidentes[llave]=libro.titulo;
-                            }
-                        }
-                        if (Object.keys(libroscoincidentes).length === 0) {
-                            console.log("El objeto está vacío");
-                            agregartexto();
-                        }
-                        else{
-                            console.log(libroscoincidentes);
-                            if(ordenar == "A-Z"){
-                                ORDENAR(libroscoincidentes,"A-Z")
-                            }
-                            else if(ordenar == "Z-A"){
-                                ORDENAR(libroscoincidentes,"Z-A")
-                            }
-                        }
-                        
-
-                    }
-                    // idioma + genero
-                    else if(idioma!="" && genero != "seleccion"){
-                        console.log("idioma, seleccion es dintinto de vacio");
-                        let libroscoincidentes = {};
-                        for(let libro of librosactuales){
-                            if(idioma == libro.idioma && libro.categorias.includes(genero)){
-                                let llave = libro.link;
-                                libroscoincidentes[llave]=libro.titulo;
-                            }
-                        }
-
-                        if (Object.keys(libroscoincidentes).length === 0) {
-                            console.log("El objeto está vacío");
-                            agregartexto();
-                        }
-                        else{
-                            for(let clave in libroscoincidentes){
-                                tarjetas(clave);
-                                console.log(clave);
-                            }  
-                        }
-                    }
-                    //genero + orden
-                    else if(genero != "seleccion" && ordenar != "ordenar por"){
-                        let libroscoincidentes = {};
-                        // keys.length = 0;
-                        for(let libro of librosactuales){
-                            if(libro.categorias.includes(genero)){
-                                let llave = libro.link;
-                                libroscoincidentes[llave]=libro.titulo;
-                            }
-                        }
-                        if (Object.keys(libroscoincidentes).length === 0) {
-                            console.log("El objeto está vacío");
-                            agregartexto();
-                        }
-                        else{
-                            if(ordenar == "A-Z"){
-                                ORDENAR(libroscoincidentes,"A-Z")
-                            }
-                            else if(ordenar == "Z-A"){
-                                ORDENAR(libroscoincidentes,"Z-A")
-                            }
-                        }
-                    }
-                    //idioma + orden
-                    else if(idioma!="" && ordenar != "ordenar por"){
-                        let libroscoincidentes = {};
-                        // keys.length = 0;
-                        for(let libro of librosactuales){
-                            if(idioma == libro.idioma){
-                                let llave = libro.link;
-                                libroscoincidentes[llave]=libro.titulo;
-                            }
-                        }
-                        console.log(libroscoincidentes);
-                        if (Object.keys(libroscoincidentes).length === 0) {
-                            console.log("El objeto está vacío");
-                            agregartexto();
-                        }
-                        else{
-                            if(ordenar == "A-Z"){
-                                ORDENAR(libroscoincidentes,"A-Z")
-                            }
-                            else if(ordenar == "Z-A"){
-                                ORDENAR(libroscoincidentes,"Z-A")
-                            }
-                        }
+                const librosfiltrados = {};
+                for (const libro of librosactuales) {
+                    const IDIOMA = idioma == "" || libro.idioma === idioma;//true si idioma es vacio o idioma es igual a idioma del libro
+                    const GENERO = genero == "seleccion" || libro.categorias.includes(genero);//true si no se selecciono genero y true si coincide genero
+                    if (IDIOMA && GENERO){
+                        librosfiltrados[libro.link] = libro.titulo.toLowerCase();
                     }
                 }
-                //si solo eligio idioma
-                else if (idioma!=""){
-                    console.log("idioma");
-                    let libroscoincidentes = {};
-                    for(let libro of librosactuales){
-                        if(idioma == libro.idioma){
-                            let llave = libro.link;
-                            libroscoincidentes[llave]=libro.titulo;
-                        }  
-                    }
-                    if (Object.keys(libroscoincidentes).length === 0) {
-                            console.log("El objeto está vacío");
-                            agregartexto();
-                    }
-                    else{
-                            for(let clave in libroscoincidentes){
-                                tarjetas(clave);
-                                console.log(clave);
-                            }  
-                    }
 
+                // console.log("libros filtrados",librosfiltrados);
+
+                if (Object.keys(librosfiltrados).length == 0) {
+                    agregartexto(); 
                 }
-                //si solo eligio genero
-                else if(genero != "seleccion"){
-                    console.log("seleccion es dintinto de vacio");
-                    let libroscoincidentes = {};
-                    for(let libro of librosactuales){
-                        if(libro.categorias.includes(genero)){
-                            let llave = libro.link;
-                            libroscoincidentes[llave]=libro.titulo;
-                        } 
-                    }
-                    if (Object.keys(libroscoincidentes).length === 0) {
-                            console.log("El objeto está vacío");
-                            agregartexto();
-                    }
-                    else{
-                            for(let clave in libroscoincidentes){
-                                tarjetas(clave);
-                                console.log(clave);
-                            }  
+                 
+                else if (ordenar != "ordenar por") {
+                    ORDENAR(librosfiltrados, ordenar);
+                } 
+                else {
+                    
+                    for (const clave in librosfiltrados){
+                        tarjetas(clave);
                     }
                 }
-                //si solo eligio ordenar
-                else if (ordenar != "ordenar por"){
-                    // console.log(keys);
-                    if(ordenar == "A-Z"){
-                        ORDENAR(diccionarioactual,"A-Z")
-                    }
-                    else if(ordenar == "Z-A"){
-                        ORDENAR(diccionarioactual,"Z-A")
-                    }
-                }
-                
+                  
              })
 function ORDENAR(diccionario,ORDEN){
         //me entrega una lista con las claves del diccionario
         let items = Object.keys(diccionario).map(
         (key) => { return [key, diccionario[key]] });
-        // list = [(llave,elemento)]
+        
         //compara los titulos de los diferentes posiciones
         items.sort(
             (first, second) => {
@@ -515,8 +314,7 @@ function ORDENAR(diccionario,ORDEN){
         keys = items.map(
         (e) => { return e[0] });
 
-        // console.log(keys)
-        mostrarTarjetasOrdenadas(keys);
+        mostrarTarjetasordenadas(keys);
 
 }
 //para regresar al inicio con las tarjetas iniciales
@@ -524,6 +322,7 @@ regresar.addEventListener("click",()=>{
     seccionbusqueda.innerHTML="";
     librosbuscados.length = 0;
     secciontarjetas.classList.remove("d-none");
+    masresultados.classList.add("d-none");
 })
 //agrega texto cuando no hay resultados
 function agregartexto(){
