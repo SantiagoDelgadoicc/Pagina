@@ -76,13 +76,13 @@ function añadirtarjeta(eleccion){
     //indice por donde quiero que la api empiece
     let startindex = 0;
     //ultima consulta realizada por busqueda
-    let ultimaconsulta = "";
+    let consulta = "";
     btnmasresultados.addEventListener("click", ()=>{
         librosbuscados.length = 0;
         startindex += 40;
         seccionbusqueda.innerHTML="";
-        const consulta = `${ultimaconsulta}${startindex}&maxResults=40&key=${key}`;
-        añadirtarjetabusqueda(consulta);
+        const Consulta = consulta + `${startindex}&maxResults=40&key=${key}`;
+        añadirtarjetabusqueda(Consulta);
     })
     const busqueda = document.getElementById("busqueda");
     busqueda.addEventListener("submit",(event) => {
@@ -100,15 +100,15 @@ function añadirtarjeta(eleccion){
         const seleccion = event.target.selectorbusqueda.value;
         
         if(seleccion == "general"){
-            ultimaconsulta = `https://www.googleapis.com/books/v1/volumes?q=${elemento}&startIndex=`;
+            consulta = `https://www.googleapis.com/books/v1/volumes?q=${elemento}&startIndex=`;
         }
         else{
-            ultimaconsulta = `https://www.googleapis.com/books/v1/volumes?q=${seleccion}:${elemento}&startIndex=`;
+            consulta = `https://www.googleapis.com/books/v1/volumes?q=${seleccion}:${elemento}&startIndex=`;
         }
-        let consulta = `${ultimaconsulta}${startindex}&maxResults=40&key=${key}`;
+        let CONSULTA = consulta +`${startindex}&maxResults=40&key=${key}`;
              
         // console.log(consulta);
-        añadirtarjetabusqueda(consulta);
+        añadirtarjetabusqueda(CONSULTA);
     
 })
 
@@ -195,7 +195,7 @@ function añadirtarjetabusqueda(consulta){
     }
 
 //necesito esperar la respuesta antes de colocar la tarjeta al momento de ordenarlas
-async function mostrarTarjetasordenadas(keys) {
+async function mostrartarjetasordenadas(keys) {
     for (let link of keys) {
         try {
             await tarjetas(link);
@@ -314,7 +314,7 @@ function ORDENAR(diccionario,ORDEN){
         keys = items.map(
         (e) => { return e[0] });
 
-        mostrarTarjetasordenadas(keys);
+        mostrartarjetasordenadas(keys);
 
 }
 //para regresar al inicio con las tarjetas iniciales
